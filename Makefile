@@ -6,7 +6,7 @@
 #    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/15 12:31:04 by Dugonzal          #+#    #+#              #
-#    Updated: 2023/06/15 18:36:32 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/06/15 19:36:08 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,8 @@ SANI 		:= -fsanitize=address -g3
 
 SRC_FILES	:= cub3d
 
-SRC			:= $(addprefix $(SRC_DIR), $(addsuffix, .c $(SRC_FILES)))
-OBJ			:= $(addprefix $(OBJ_DIR), $(addsuffix, .c $(SRC_FILES)))
+SRC			:= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
+OBJ			:= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 
 ifeq ($(shell uname), Linux)
 $(NAME): MLX_CF	= -L./libs/mlx_linux -lmlx_Linux -lXext -lX11
@@ -34,13 +34,8 @@ endif
 
 $(NAME): $(OBJ)
 
-
-$(OBJ_DIR):%.o $(SRC_DIR) %.c 
-	if [[ ! -d "libs/libft" ]]; then git clone https://github.com/dugonzal/libft.git libs/libft; fi
-	$(CC) 
-
-
-#	$(CC) $(CFLAGS) -o $(NAME) $(SRC) && ./cub3d
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	@mkdir -p $(OBJ_DIR)
 
 all: $(NAME)
 
