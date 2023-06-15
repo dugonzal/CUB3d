@@ -1,31 +1,38 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/06/15 12:31:04 by Dugonzal          #+#    #+#              #
-#    Updated: 2023/06/15 12:40:39 by Dugonzal         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME = cub3d
 
-NAME	:= cub3d
+FILES = cub3d read_map utils check_map
 
-CC		:= clang -g3
+F = $(addprefix ./src/, $(FILES))
+SRC = $(addsuffix .c, $(F))
+OBJ = $(addsuffix .o, $(F))
 
-R		:= rm -rf
-
-CFLAGS	:= -Wall -Wextra -Werror
-
-SHELL	:= /bin/zsh
+CC = clang
+CFLAGS = -Wall -Wextra -Werror
+##CFLAGS += -Wstring-compare -fsanitize=address -g3
+MLXFLAGS = libmlx.a -framework OpenGL -framework AppKit
 
 all: $(NAME)
 
-$(NAME):
-	$(CC) $(CFLAGS) -o $(NAME) src/cub3d.c && ./cub3d
-clean:
-	$(R) $(NAME)
-fclean: clean
+.c.o: $(SRC)
+	@$(CC) $(CFLAGS) -c -o $@ $<
 
-re: fclean all
+$(NAME): $(OBJ)
+	@ $(MAKE) -C ./mlx/
+	@ mv ./mlx/libmlx.a .
+	@ $(MAKE) -C ./Get_next_line/
+	@ mv ./Get_next_line/get_next_line.a .
+	@ $(CC) $(CFLAGS) $(OBJ) ./get_next_line.a $(MLXFLAGS) -o $(NAME)
+
+clean:
+	@ $(MAKE) -C ./mlx/ clean
+	@ $(MAKE) -C ./Get_next_line/ clean
+	@ $(RM) $(OBJ)
+
+fclean: clean
+	@ $(RM) libmlx.a
+	@ $(RM) get_next_line.a
+	@ $(RM) $(NAME)
+
+re: clean all
+
+.PHONY: all clean fclean re
