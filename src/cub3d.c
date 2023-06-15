@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/15 12:37:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/15 12:37:57 by Dugonzal         ###   ########.fr       */
+/*   Created: 2023/06/15 12:37:00 by Dugonzal          #+#    #+#             */
+/*   Updated: 2023/06/15 12:41:14 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#include "../include/cub3d.h"
 
-#include <stdio.h>
-
-#endif
+int	main(int ac, char **av)
+{
+  (void)ac;
+  (void)av;
+  printf ("HELLO CUB3D\n");
+}
