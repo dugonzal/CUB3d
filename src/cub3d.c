@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 20:12:28 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/15 20:13:00 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/16 12:24:43 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,10 @@
 
 int	main(void)
 {
-  ft_printf ("Hello World\n");
+  void *mlx;
+
+  mlx = mlx_init();
+
+  mlx_new_window(mlx, 500, 500, "Cub3D");
+  mlx_loop(mlx);
 }
