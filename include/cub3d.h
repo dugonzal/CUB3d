@@ -6,6 +6,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include "../get_next_line/get_next_line.h"
+# include "../mlx/mlx.h"
 
 //Nosé si es necesario
 # define NO	0
@@ -46,5 +47,8 @@ char	*ft_strdup(const char *src);
 int		ft_strcmp(char *str, char *str2);
 
 int		check_walls(t_map *map);
+
+//Launch_MLX
+int		init_mlx(t_lch *lch);
 
 #endif

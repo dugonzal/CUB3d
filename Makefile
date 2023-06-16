@@ -1,6 +1,6 @@
 NAME = cub3d
 
-FILES = cub3d read_map utils check_map
+FILES = cub3d read_map utils check_map lch_mlx
 
 F = $(addprefix ./src/, $(FILES))
 SRC = $(addsuffix .c, $(F))

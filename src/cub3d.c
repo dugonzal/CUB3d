@@ -8,6 +8,7 @@ int	ft_error_msg(char *str)
 	return (1);
 }
 
+//inicia las var de la struct map
 int	init_lch_var(t_lch *lch)
 {
 	t_map	*map;
@@ -34,6 +35,8 @@ int	main(int ac, char **av)
 	if (init_lch_var(&lch) || read_map(&lch, av))
 		return (1);
 	if (check_walls(lch.map))
-		return (printf("Error:"));
+		return (printf("Error: "));
+	if (init_mlx(&lch))
+		return (1);
 	return (0);
 }
