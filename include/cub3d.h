@@ -8,7 +8,6 @@
 # include "../get_next_line/get_next_line.h"
 # include "../mlx/mlx.h"
 
-//Nosé si es necesario
 # define NO	0
 # define SO	1
 # define WE	2
@@ -49,7 +48,7 @@ typedef struct s_img
 typedef struct s_map
 {
 	char	**map;
-	char	**DIRC;//6//iniciar el ** en 6
+	char	**DIRC;//NO, SO, WE, EA, F, C
 }			t_map;
 
 //Error
