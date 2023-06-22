@@ -17,7 +17,7 @@ all: $(NAME)
 	@$(CC) $(CFLAGS) -c -o $@ $<
 
 $(NAME): $(OBJ)
-	@ $(MAKE) -C ./mlx/
+	@ $(MAKE) -C ./mlx/ 2> /dev/null
 	@ mv ./mlx/libmlx.a .
 	@ $(MAKE) -C ./Get_next_line/
 	@ mv ./Get_next_line/get_next_line.a .

@@ -8,6 +8,18 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
+void	write_line(t_lch *lch, int x, int y, int color)
+{
+	t_img	*img;
+
+	img = (t_img *)malloc(sizeof(t_img));
+	printf("123\n");
+	img->img_w = mlx_new_image(lch->mlx, 1920, 1080);
+	img->addr = mlx_get_data_addr(img->img_w, &img->bits_per_pixel, &img->line_length, &img->endian);
+	my_mlx_pixel_put(img, 10, 10, color);
+	mlx_put_image_to_window(lch->mlx, lch->mlx_win, img->img_w, x, y);
+}
+
 //uso del teclado
 int	keyhook(int keycode, t_lch *lch)
 {
@@ -28,6 +40,7 @@ t_img	*init_img(t_lch *lch)
 
 	x = 0;
 	y = 0;
+	img = lch->img;
 	img->img = "../img/chest.xpm";
 	img->img_w = mlx_xpm_file_to_image(lch->mlx, img->img, &x, &y);
 	return (img);
@@ -36,10 +49,11 @@ t_img	*init_img(t_lch *lch)
 //incia mlx y la ventana
 int	init_mlx(t_lch *lch)
 {
-	//t_img	*img2 = lch->img;
+	t_img	*img2 = lch->img;
+	int x = 0;
 
 	lch->mlx = mlx_init();
-	lch->mlx_win = mlx_new_window(lch->mlx, 30 * 64, 20 * 64, "");
+	lch->mlx_win = mlx_new_window(lch->mlx, 2000, 1000, "");
 
 	//RY(lch);
 	//lch->img = init_img(lch);
@@ -47,11 +61,34 @@ int	init_mlx(t_lch *lch)
 	//img->addr = mlx_get_data_addr(img->img_w, &img->bits_per_pixel, &img->line_length, &img->endian);
 	
 	
-	/*void *img = mlx_new_image(lch->mlx, 1920, 1080);
+	void *img = mlx_new_image(lch->mlx, 2000, 1000);
 	img2->img_w = img;
 	img2->addr = mlx_get_data_addr(img2->img_w, &img2->bits_per_pixel, &img2->line_length, &img2->endian);
-	my_mlx_pixel_put(img2, 10, 10, 0x00FF0000);
-	mlx_put_image_to_window(lch->mlx, lch->mlx_win, img, 100, 100);*/
+	int		y = 0;
+	while(x++ < 2000)
+	{
+		my_mlx_pixel_put(img2, x, y, 0x00FF0000);
+		if (x == 2000)
+		{
+			y++;
+			if (y == 500)
+				break;
+			x = 0;
+		}
+	}
+	x = 0;
+	while(x++ < 2000)
+	{
+		my_mlx_pixel_put(img2, x, y, 0x339CFF);
+		if (x == 2000)
+		{
+			y++;
+			if (y == 1000)
+				break;
+			x = 0;
+		}
+	}
+	mlx_put_image_to_window(lch->mlx, lch->mlx_win, img, 0, 0);
 
 
 	// crea una imagen
