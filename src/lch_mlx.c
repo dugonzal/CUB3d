@@ -88,6 +88,7 @@ int	init_mlx(t_lch *lch)
 			x = 0;
 		}
 	}
+	//RY(lch);
 	mlx_put_image_to_window(lch->mlx, lch->mlx_win, img, 0, 0);
 
 

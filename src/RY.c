@@ -3,19 +3,11 @@
 void	printRay(t_lch *lch, int start, int end, int color)
 {
 	int	i;
-	t_img	*img = lch->img;
-	
+	(void)color;
+
 	i = start;
-	if (color == 1)
-		color = 0x00FF0000;
-	else
-		color = 0x00FF0000;
-	img->img_w = mlx_new_image(lch->mlx, 1920, 1080);
-	img->addr = mlx_get_data_addr(img->img_w, &img->bits_per_pixel, &img->line_length, &img->endian);
-	my_mlx_pixel_put(img, 10, 10, 0x00FF0000);
-	//mlx_put_image_to_window(lch->mlx, lch->mlx_win, img, 100, 100);
-	while (i++ < end)
-		mlx_put_image_to_window(lch->mlx, lch->mlx_win, img, 100, 100);
+	while (start++ < end)
+		my_mlx_pixel_put(lch->img->img_w, 100, 100, 0x33FF5B);
 }
 
 int	RY(t_lch *lch)

@@ -68,5 +68,6 @@ int		check_walls(t_map *map);
 int		init_mlx(t_lch *lch);
 
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
+int	RY(t_lch *lch);
 
 #endif
