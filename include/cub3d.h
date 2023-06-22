@@ -20,14 +20,30 @@ typedef struct s_lch
 {
 	void			*mlx;
 	void			*mlx_win;
+	int				width;//tamaño de la ventana
+	int				heigth;
 	struct s_img	*img;
 	struct s_map	*map;
+
+	double			posX;
+	double			posY;
+	double			dirX;
+	double			dirY;
+	double			planeX;
+	double			planeY;
+	int				time;
+	int				oldTime;
+
 }			t_lch;
 
 typedef struct s_img
 {
 	char	*img;
 	void	*img_w;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
 }			t_img;
 
 typedef struct s_map
@@ -50,5 +66,7 @@ int		check_walls(t_map *map);
 
 //Launch_MLX
 int		init_mlx(t_lch *lch);
+
+void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 
 #endif

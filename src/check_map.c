@@ -63,7 +63,7 @@ int	check_walls(t_map *map)
 	{
 		i[1] = 0;
 		if (map->map[i[0]] != NULL && map->map[i[0]][ft_strlen(map->map[i[0]]) - 2] != '1')
-			return (ft_error_msg("Error: "));//error de map sin cerrar
+			return (ft_error_msg("Error: 3"));//error de map sin cerrar
 		while (map->map[i[0]] != NULL && map->map[i[0]][i[1]])
 		{
 			while (map->map[i[0]][i[1]] == ' ' && map->map[i[0]][i[1]] != '\0')
@@ -79,7 +79,7 @@ int	check_walls(t_map *map)
 		}
 	}
 	if (i[2] != 1)
-		return (ft_error_msg("Error: "));//mensaje de numero de jugadores invalido
+		return (ft_error_msg("Error: 1"));//mensaje de numero de jugadores invalido
 	return (check_space(map));
 }
 
