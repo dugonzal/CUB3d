@@ -1,6 +1,6 @@
 NAME = cub3d
 
-FILES = cub3d read_map utils check_map lch_mlx RY
+FILES = cub3d read_map utils check_map lch_mlx /raycasting/raycasting
 
 F = $(addprefix ./src/, $(FILES))
 SRC = $(addsuffix .c, $(F))
@@ -8,7 +8,7 @@ OBJ = $(addsuffix .o, $(F))
 
 CC = clang
 CFLAGS = -Wall -Wextra -Werror
-##CFLAGS += -Wstring-compare -fsanitize=address -g3
+CFLAGS += -Wstring-compare -fsanitize=address -g3
 MLXFLAGS = libmlx.a -framework OpenGL -framework AppKit
 
 all: $(NAME)

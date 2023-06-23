@@ -15,6 +15,9 @@
 # define F	4
 # define C	5
 
+# define W	2000
+# define H	1000
+
 typedef struct s_lch
 {
 	void			*mlx;
@@ -23,17 +26,38 @@ typedef struct s_lch
 	int				heigth;
 	struct s_img	*img;
 	struct s_map	*map;
-
-	double			posX;
-	double			posY;
-	double			dirX;
-	double			dirY;
-	double			planeX;
-	double			planeY;
-	int				time;
-	int				oldTime;
-
+	struct s_ry		*ry;
 }			t_lch;
+
+typedef struct	s_ry
+{
+	double	posX;
+	double	posY;
+	double	dirX;
+	double	dirY;
+	double	planeX;
+	double	planeY;
+
+	double	cameraX;
+
+	double	rayDirX;
+	double	rayDirY;
+
+	double	sideDistX;
+	double	sideDistY;
+
+	double	deltaDistX;
+	double	deltaDistY;
+
+	double	perpWallDist;
+
+	int		mapX;
+	int		mapY;
+
+	int		stepX;
+	int		stepY;
+}			t_ry;
+
 
 typedef struct s_img
 {
@@ -67,6 +91,8 @@ int		check_walls(t_map *map);
 int		init_mlx(t_lch *lch);
 
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
+
 int	RY(t_lch *lch);
+int	raycasting(t_lch *lch);
 
 #endif

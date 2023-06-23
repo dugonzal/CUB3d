@@ -49,25 +49,24 @@ t_img	*init_img(t_lch *lch)
 //incia mlx y la ventana
 int	init_mlx(t_lch *lch)
 {
-	t_img	*img2 = lch->img;
-	int x = 0;
+	//t_img	*img = lch->img;
 
 	lch->mlx = mlx_init();
-	lch->mlx_win = mlx_new_window(lch->mlx, 2000, 1000, "");
+	lch->mlx_win = mlx_new_window(lch->mlx, 2001, 1001, "");
 
 	//RY(lch);
 	//lch->img = init_img(lch);
 	
-	//img->addr = mlx_get_data_addr(img->img_w, &img->bits_per_pixel, &img->line_length, &img->endian);
 	
 	
-	void *img = mlx_new_image(lch->mlx, 2000, 1000);
-	img2->img_w = img;
-	img2->addr = mlx_get_data_addr(img2->img_w, &img2->bits_per_pixel, &img2->line_length, &img2->endian);
-	int		y = 0;
+	//void *screm_img = mlx_new_image(lch->mlx, 2001, 1001);
+	lch->img->img_w = mlx_new_image(lch->mlx, 2001, 1001);
+	lch->img->addr = mlx_get_data_addr(lch->img->img_w, &lch->img->bits_per_pixel, &lch->img->line_length, &lch->img->endian);
+	int	y = 0;
+	int x = 0;
 	while(x++ < 2000)
 	{
-		my_mlx_pixel_put(img2, x, y, 0x00FF0000);
+		my_mlx_pixel_put(lch->img, x, y, 0x00FF0000);
 		if (x == 2000)
 		{
 			y++;
@@ -79,7 +78,7 @@ int	init_mlx(t_lch *lch)
 	x = 0;
 	while(x++ < 2000)
 	{
-		my_mlx_pixel_put(img2, x, y, 0x339CFF);
+		my_mlx_pixel_put(lch->img, x, y, 0x339CFF);
 		if (x == 2000)
 		{
 			y++;
@@ -89,7 +88,8 @@ int	init_mlx(t_lch *lch)
 		}
 	}
 	//RY(lch);
-	mlx_put_image_to_window(lch->mlx, lch->mlx_win, img, 0, 0);
+	raycasting(lch);
+	mlx_put_image_to_window(lch->mlx, lch->mlx_win, lch->img->img_w, 0, 0);
 
 
 	// crea una imagen
