@@ -1,12 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/15 12:37:30 by Dugonzal          #+#    #+#             */
+/*   Updated: 2023/06/19 14:21:09 by Dugonzal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include <math.h>
-# include <unistd.h>
 # include <stdio.h>
 # include <fcntl.h>
-# include "../get_next_line/get_next_line.h"
-# include "../mlx/mlx.h"
+# include <unistd.h>
+# include <stdlib.h>
+#include "../libs/libft/include/libft.h"
+#include "../libs/minilibx_macos/mlx.h"
+# include <math.h>
+
+
 
 //Nosé si es necesario
 # define NO	0
@@ -50,5 +65,9 @@ int		check_walls(t_map *map);
 
 //Launch_MLX
 int		init_mlx(t_lch *lch);
+
+
+
+
 
 #endif

@@ -32,7 +32,8 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 		return (ft_error_msg("Error: Invalid arguments"));
-	if (init_lch_var(&lch) || read_map(&lch, av))
+
+	if (init_lch_var(&lch) || read_map(&lch, av)  )
 		return (1);
 	if (check_walls(lch.map))
 		return (printf("Error: "));
