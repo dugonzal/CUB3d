@@ -6,18 +6,42 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:44:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/26 22:01:15 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/26 22:10:37 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
 // ahora mismo leemos el archivo y lo guardamos en un buffer
-void get_map(t_game *game)
+int	len_map(t_game *game)
 {
-  (void)game;
+	int	i;
+	int j;
+
+	j = 0;
+	i = -1;
+	while (game->map->buffer[++i])
+		if (search(game->map->buffer[i], '1'))
+		  j++;
+	return (j);
 }
 
+void get_map(t_game *game)
+{
+  int i;
+  int j;
+
+  j = -1;
+  i = -1;
+  game->map->map = ft_calloc(sizeof(char *), len_map(game) + 1);
+  while (game->map->buffer[++i])
+  {
+	if (search(game->map->buffer[i], '1') && !search("NESWF", game->map->buffer[i][0]))
+		game->map->map[++j] = ft_strdup(game->map->buffer[i]);
+  }
+  game->map->map[i] = NULL;
+  print(game->map->map);
+}
 
 int parser(t_game *game, char **av)
 {
@@ -29,5 +53,6 @@ int parser(t_game *game, char **av)
   if (fd < 0)
 	return (err_ret("Error: Invalid file: No such file or directory"));
   read_fd(game, fd, av[1]);
+  get_map(game);
   return  (0);
 }
