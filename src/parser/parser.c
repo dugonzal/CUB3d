@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:44:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/26 22:21:04 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/26 22:28:27 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	len_map(t_game *game)
 	i = -1;
 	while (game->map->buffer[++i])
 		if (search(game->map->buffer[i], '1') \
-		&& !search("NESWF", game->map->buffer[i][0]))
+		&& !search("NESWFC", game->map->buffer[i][0]))
 		  j++;
 	return (j);
 }
@@ -37,7 +37,7 @@ void get_map(t_game *game)
   game->map->map = ft_calloc(sizeof(char *), len_map(game) + 1);
   while (game->map->buffer[++i])
 	if (search(game->map->buffer[i], '1') \
-	&& !search("NESWF", game->map->buffer[i][0]))
+	&& !search("NESWFC", game->map->buffer[i][0]))
 		game->map->map[++j] = ft_strdup(game->map->buffer[i]);
   game->map->map[i] = NULL;
 }
