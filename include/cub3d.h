@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 12:37:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/26 15:37:12 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/26 21:30:11 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,7 @@ typedef struct s_game
 	struct s_img	*img;
 	struct s_map	*map;
 }			t_game;
+
+
+void print(char **str);
 #endif
