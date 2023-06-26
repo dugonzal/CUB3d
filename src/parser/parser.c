@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:44:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/26 22:10:37 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/26 22:18:27 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ void get_map(t_game *game)
   i = -1;
   game->map->map = ft_calloc(sizeof(char *), len_map(game) + 1);
   while (game->map->buffer[++i])
-  {
 	if (search(game->map->buffer[i], '1') && !search("NESWF", game->map->buffer[i][0]))
 		game->map->map[++j] = ft_strdup(game->map->buffer[i]);
-  }
   game->map->map[i] = NULL;
-  print(game->map->map);
 }
-
+/*
+ Excepto por el contenido del mapa, que debe estar siempre al final, cada tipo
+de elemento puede estar establecido en cualquier orden en el archivo.
+ */
 int parser(t_game *game, char **av)
 {
   int		fd;
