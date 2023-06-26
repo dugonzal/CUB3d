@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 12:37:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/26 15:31:00 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/26 15:37:12 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,9 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
-#include "../libs/libft/include/libft.h"
-#include "../libs/minilibx_macos/mlx.h"
+# include "../libs/libft/include/libft.h"
+# include "../libs/minilibx_macos/mlx.h"
 # include <math.h>
-
-
 
 //Nosé si es necesario
 # define NO	0
@@ -42,7 +40,6 @@ typedef struct s_img
 	void	*img_w;
 }			t_img;
 
-
 typedef struct s_game
 {
 	void			*mlx;
@@ -50,7 +47,4 @@ typedef struct s_game
 	struct s_img	*img;
 	struct s_map	*map;
 }			t_game;
-
-
-
 #endif
