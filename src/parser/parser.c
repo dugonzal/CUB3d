@@ -6,12 +6,13 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:44:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/26 21:53:49 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/26 21:55:52 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
+// ahora mismo leemos el archivo y lo guardamos en un buffer
 int parser(t_game *game, char **av)
 {
   int		fd;
