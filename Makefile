@@ -6,7 +6,7 @@
 #    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/15 12:31:04 by Dugonzal          #+#    #+#              #
-#    Updated: 2023/06/23 12:53:57 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/06/26 15:30:47 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,7 @@ MLX_PATH 	:= libs/minilibx_macos/
 val 		:=  valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes
 SANI 		:= -fsanitize=address
 
-SRC_FILES	:= cub3d lch_mlx read_map utils check_map
-
+SRC_FILES	:= cub3d 
 SRC			:= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ			:= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 

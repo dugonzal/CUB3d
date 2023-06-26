@@ -91,7 +91,7 @@ int	read_map(t_lch *lch, char **av)
 		if (line[0] != '\n')
 		{
 			if (malloc_dirc(line, lch->map, i[0]))
-				return (ft_error_msg("Error: Malloc error"));
+				return (err_ret("Error: Malloc error"));
 			i[2]++;
 		}
 		if (i[2] == 6)

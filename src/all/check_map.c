@@ -49,7 +49,7 @@ int	check_space(t_map *map)
 		x++;
 	}
 	if (i > 0)
-		return (ft_error_msg("Error: "));//map sin cerrar
+		return (err_ret("Error: "));//map sin cerrar
 	return (0);
 }
 
@@ -63,13 +63,13 @@ int	check_walls(t_map *map)
 	{
 		i[1] = 0;
 		if (map->map[i[0]] != NULL && map->map[i[0]][ft_strlen(map->map[i[0]]) - 2] != '1')
-			return (ft_error_msg("Error: "));//error de map sin cerrar
+			return (err_ret("Error: "));//error de map sin cerrar
 		while (map->map[i[0]] != NULL && map->map[i[0]][i[1]])
 		{
 			while (map->map[i[0]][i[1]] == ' ' && map->map[i[0]][i[1]] != '\0')
 			{
 				if (map->map[i[0]][i[1]] != ' ' && map->map[i[0]][i[1]] != '1')
-					return (ft_error_msg("Error: 2"));//error de map sin cerrar
+					return (err_ret("Error: 2"));//error de map sin cerrar
 				i[1]++;
 			}
 			if (map->map[i[0]][i[1]] == 'N' || map->map[i[0]][i[1]] == 'S'\
@@ -79,7 +79,7 @@ int	check_walls(t_map *map)
 		}
 	}
 	if (i[2] != 1)
-		return (ft_error_msg("Error: "));//mensaje de numero de jugadores invalido
+		return (err_ret("Error: "));//mensaje de numero de jugadores invalido
 	return (check_space(map));
 }
 
