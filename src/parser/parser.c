@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:44:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/26 22:28:27 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/26 22:43:36 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ int	len_map(t_game *game)
 	int j;
 
 	j = 0;
-	i = -1;
-	while (game->map->buffer[++i])
+	i = 0;
+	while (game->map->buffer[i])
+	{
 		if (search(game->map->buffer[i], '1') \
 		&& !search("NESWFC", game->map->buffer[i][0]))
 		  j++;
+		i++;
+	}
 	return (j);
 }
 
@@ -32,14 +35,21 @@ void get_map(t_game *game)
   int i;
   int j;
 
-  j = -1;
-  i = -1;
+  j = 0;
+  i = 0;
   game->map->map = ft_calloc(sizeof(char *), len_map(game) + 1);
-  while (game->map->buffer[++i])
+  while (game->map->buffer[i])
+  {
 	if (search(game->map->buffer[i], '1') \
 	&& !search("NESWFC", game->map->buffer[i][0]))
-		game->map->map[++j] = ft_strdup(game->map->buffer[i]);
-  game->map->map[i] = NULL;
+	{
+		game->map->map[j] = ft_strdup(game->map->buffer[i]);
+		j++;
+	}
+	i++;
+  }
+  printf ("[%s]", game->map->map[j]);
+  print (game->map->map);
 }
 
 /*

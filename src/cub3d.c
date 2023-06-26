@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:32:36 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/26 22:15:58 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/26 22:40:21 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,5 @@ int	main(int ac, char **av)
   ft_bzero(&game, sizeof(t_game));
   init_struct(&game);
   parser (&game, av);
-  print(game.map->map);
   return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:50:57 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/26 22:14:32 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/26 22:44:03 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void read_fd(t_game *game, int fd, char *av)
 	i++;
   }
   free (line);
-  game->map->buffer[i] = NULL;
   close(fd);
+
 }
 
