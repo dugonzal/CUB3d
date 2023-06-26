@@ -6,7 +6,7 @@
 #    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/15 12:31:04 by Dugonzal          #+#    #+#              #
-#    Updated: 2023/06/26 21:29:02 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/06/26 21:53:36 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,12 @@ MLX_PATH 	:= libs/minilibx_macos/
 val 		:=  valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes
 SANI 		:= -fsanitize=address
 
-SRC_FILES	:= cub3d utils 
+PARSER_DIR		:= parser/
+PARSER_FILES	:= read_fd parser
+
+SRC_FILES	+= $(addprefix $(PARSER_DIR),$(PARSER_FILES))
+SRC_FILES	+= cub3d utils 
+
 SRC			:= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ			:= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 
@@ -43,6 +48,7 @@ $(NAME): $(OBJ)
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	mkdir -p libs/bin
 	mkdir -p $(OBJ_DIR)
+	mkdir -p $(OBJ_DIR)$(PARSER_DIR)
 	# si no tienes cli-git instalado, instala git y ejecuta el comando git clone https://github.com/dugonzal/libft
 	if [[ ! -d "libs/libft" ]]; then gh repo clone libft  && mv libft libs/; fi
 	make -C libs/libft && cp -r libs/libft/libft.a libs/bin/
