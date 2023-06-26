@@ -6,20 +6,19 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:32:36 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/26 16:47:05 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/26 21:30:41 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int len_map(int fd, t_game *game)
+int len_map(int fd)
 {
   int	i;
   char	*line;
 
   i = 0;
-  (void)game;
-  (void)i;
+  
   line = get_next_line(fd);
   if (!line)
 	  return (err_ret("Error: Invalid file: No map"));
@@ -29,10 +28,34 @@ int len_map(int fd, t_game *game)
 	free(line);
 	line = get_next_line(fd);
   }
-  printf("%d\n", i);
   return (i);
 }
 
+
+
+void read_map(t_game *game, int fd, char *av)
+{
+  int	i;
+  char	*line;
+  
+  i = 0;
+  game->map->map = ft_calloc(sizeof(char *), len_map(fd) + 1);
+  fd = ft_open(av, 0);
+  if (fd < 0)
+	return (err("Error: Invalid file: No such file or directory"));
+  line = get_next_line(fd);
+  if (!line)
+	return (err("Error: Invalid file: No map"));
+  while (line)
+  {
+	game->map->map[i] = ft_strdup(line);
+	free(line);
+	line = get_next_line(fd);
+	i++;
+  }
+  free (line);
+  game->map->map[i] = NULL;
+}
 
 int cub3d(t_game *game, char **av)
 {
@@ -46,13 +69,10 @@ int cub3d(t_game *game, char **av)
   game->img = &img;
   ft_bzero(game->map, sizeof(t_map));
   ft_bzero(game->img, sizeof(t_img));
- 
   fd = ft_open(av[1], 0);
-  if (fd == -1)
+  if (fd < 0)
 	return (err_ret("Error: Invalid file: No such file or directory"));
-  else 
-	  ft_printf("File: %d\n", fd);
-  len_map(fd, game);
+  read_map(game, fd, av[1]);
   return  (0);
 }
 int	main(int ac, char **av)
@@ -63,5 +83,6 @@ int	main(int ac, char **av)
 	  return (err_ret("Error: Invalid arguments"));
   ft_bzero(&game, sizeof(t_game));
   cub3d (&game, av);
+  print(game.map->map);
   return (0);
 }
