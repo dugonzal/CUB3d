@@ -8,6 +8,8 @@
 # include "../get_next_line/get_next_line.h"
 # include "../mlx/mlx.h"
 
+# include <stdbool.h>//
+
 # define NO	0
 # define SO	1
 # define WE	2
@@ -15,8 +17,8 @@
 # define F	4
 # define C	5
 
-# define W	2000
-# define H	1000
+# define W 2000	//2000
+# define H 1000	//1000
 
 typedef struct s_lch
 {
@@ -94,5 +96,9 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 
 int	RY(t_lch *lch);
 int	raycasting(t_lch *lch);
+void	init_ry(t_ry *ry);
+int		ryc(t_lch *lch);
+int	keyhook2(int keycode, t_lch *lch);
+void	print_screen(t_lch *lch);
 
 #endif

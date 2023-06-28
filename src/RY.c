@@ -1,31 +1,116 @@
 #include "../include/cub3d.h"
 
-void	printRay(t_lch *lch, int start, int end, int x, int color)
+#define mapWidth 24
+#define mapHeight 24
+
+int worldMap[mapWidth][mapHeight]=
+{
+  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
+  {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
+  {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+};
+
+void	printRay3(t_lch *lch, int start, int end, int x, int color)
 {
 	int	i;
 	(void)color;
 
 	i = start;
-	printf("%d\n%d\n", start, end);
+	//printf("%d\n%d\n", start, end);
 	while (i++ < end)
-		my_mlx_pixel_put(lch->img, x, i, 0x33FF5B);
+		my_mlx_pixel_put(lch->img, x, i, color);
+}
+
+int	keyhook2(int keycode, t_lch *lch)
+{
+	t_ry *ry = lch->ry;
+	double	moveSpeed = 1;
+	double	rotSpeed = 10 * (M_PI / 180);
+
+	if (keycode == 53)
+		exit(1);
+	//else
+	//	printf("Keycode -> %d\n", keycode);
+	//126 arriba, 123 der, 124, iz, 125 abajo
+	if (keycode == 126)
+	{
+		mlx_clear_window(lch->mlx, lch->mlx_win);
+		if(worldMap[(int)(ry->posX + ry->dirX * moveSpeed)][(int)(ry->posY)] == false) ry->posX += ry->dirX * moveSpeed;
+    	if(worldMap[(int)(ry->posX)][(int)(ry->posY + ry->dirY * moveSpeed)] == false) ry->posY += ry->dirY * moveSpeed;
+		print_screen(lch);
+	}
+	else if (keycode == 125)
+	{
+		mlx_clear_window(lch->mlx, lch->mlx_win);
+		if(worldMap[(int)(ry->posX - ry->dirX * moveSpeed)][(int)(ry->posY)] == false) ry->posX -= ry->dirX * moveSpeed;
+		if(worldMap[(int)(ry->posX)][(int)(ry->posY - ry->dirY * moveSpeed)] == false) ry->posY -= ry->dirY * moveSpeed;
+		print_screen(lch);
+	}
+	else if (keycode == 124)
+	{
+		mlx_clear_window(lch->mlx, lch->mlx_win);
+		double oldDirX = ry->dirX;
+    	ry->dirX = ry->dirX * cos(-rotSpeed) - ry->dirY * sin(-rotSpeed);
+    	ry->dirY = oldDirX * sin(-rotSpeed) + ry->dirY * cos(-rotSpeed);
+    	double oldPlaneX = ry->planeX;
+    	ry->planeX = ry->planeX * cos(-rotSpeed) - ry->planeY * sin(-rotSpeed);
+    	ry->planeY = oldPlaneX * sin(-rotSpeed) + ry->planeY * cos(-rotSpeed);
+		print_screen(lch);
+	}
+	else if (keycode == 123)
+	{
+		mlx_clear_window(lch->mlx, lch->mlx_win);
+		double oldDirX = ry->dirX;
+    	ry->dirX = ry->dirX * cos(rotSpeed) - ry->dirY * sin(rotSpeed);
+    	ry->dirY = oldDirX * sin(rotSpeed) + ry->dirY * cos(rotSpeed);
+    	double oldPlaneX = ry->planeX;
+    	ry->planeX = ry->planeX * cos(rotSpeed) - ry->planeY * sin(rotSpeed);
+    	ry->planeY = oldPlaneX * sin(rotSpeed) + ry->planeY * cos(rotSpeed);
+		print_screen(lch);
+	}
+	return (0);
 }
 
 int	RY(t_lch *lch)
 {
 	int	x;
-	t_map *map = lch->map;
+	//t_map *map = lch->map;
+	t_ry *ry = lch->ry;
 	
 	x = 0;
 
 	//-------------------------
 	
-	lch->posX = 13;
-	lch->posY = 27;
-	lch->dirX = 1;
-	lch->dirY = 0;
-	lch->planeX = 0;
-	lch->planeY = 0.66;
+	/*double posX = 22;
+	double posY = 12;
+	double dirX = -1;
+	double dirY = 0;
+	double planeX = 0;
+	double planeY = 0.66;*/
+
+	//double time = 0;
+	//double oldtime = 0;
 
 	/*lch->posX, lch->posY;
 	lch->dirX, lch->dirY;
@@ -33,79 +118,68 @@ int	RY(t_lch *lch)
 
 	//-------------------------
 
-		while (x < W)
+		while (x++ < W)
 		{
-			double	cameraX = 2 * x / (double)W / 1;
+			ry->cameraX = 2 * x / (double)W - 1;
 			
-			double	rayDirX = lch->dirX + lch->planeX * cameraX;
-			double	rayDirY = lch->dirY + lch->planeY * cameraX;
+			ry->rayDirX = ry->dirX + ry->planeX * ry->cameraX;
+			ry->rayDirY = ry->dirY + ry->planeY * ry->cameraX;
 
-			int	mapX = (int)lch->posX;
-			int	mapY = (int)lch->posY;
+			ry->mapX = (int)ry->posX;
+			ry->mapY = (int)ry->posY;
 
-			double	sideDistX;
-			double	sideDistY;
 
-			unsigned int abs;
-
-			abs = 1 / rayDirX;//
-			double	deltaDistX = (rayDirX == 0) ? 1e30 : abs;
-			abs = 1 / rayDirY;
-			double	deltaDistY = (rayDirX == 0) ? 1e30 : abs;
-
-			double perpWallDist;
-
-			int	stepX;
-			int	stepY;
+			ry->deltaDistX = (ry->rayDirX == 0) ? 1e30 : fabs(1 / ry->rayDirX);
+			ry->deltaDistY = (ry->rayDirX == 0) ? 1e30 : fabs(1 / ry->rayDirY);
 
 			int	hit = 0;
 			int	side;
 
-			if (rayDirX < 0)
+			if (ry->rayDirX < 0)
 			{
-				stepX = -1;
-				sideDistX = (lch->posX - mapX) * deltaDistX;
+				ry->stepX = -1;
+				ry->sideDistX = (ry->posX - ry->mapX) * ry->deltaDistX;
 			}
 			else
 			{
-				stepX = 1;
-				sideDistX = (mapX + 1.0 - lch->posX) * deltaDistX;
+				ry->stepX = 1;
+				ry->sideDistX = (ry->mapX + 1.0 - ry->posX) * ry->deltaDistX;
 			}
-			if (rayDirY < 0)
+			if (ry->rayDirY < 0)
 			{
-				stepY = -1;
-				sideDistY = (lch->posY - mapY) * deltaDistY;
+				ry->stepY = -1;
+				ry->sideDistY = (ry->posY - ry->mapY) * ry->deltaDistY;
 			}
 			else
 			{
-				stepY = 1;
-				sideDistY = (mapY + 1.0 - lch->posY) * deltaDistY;
+				ry->stepY = 1;
+				ry->sideDistY = (ry->mapY + 1.0 - ry->posY) * ry->deltaDistY;
 			}
 
 			while (hit == 0)
 			{
-				if (sideDistX < sideDistY)
+				if (ry->sideDistX < ry->sideDistY)
 				{
-					sideDistX += deltaDistX;
-					mapX += stepX;
+					ry->sideDistX += ry->deltaDistX;
+					ry->mapX += ry->stepX;
 					side = 0;
 				}
 				else
 				{
-					sideDistY += deltaDistY;
-					mapY += stepY;
+					ry->sideDistY += ry->deltaDistY;
+					ry->mapY += ry->stepY;
 					side = 1;
 				}
-				if (map->map[mapX][mapY] != 0)
+				if (worldMap[ry->mapX][ry->mapY] > 0)
 					hit = 1;
 			}
 
 			if (side == 0)
-				perpWallDist = (sideDistX - deltaDistX);
+				ry->perpWallDist = (ry->sideDistX - ry->deltaDistX);
 			else
-				perpWallDist = (sideDistY - deltaDistX);
+				ry->perpWallDist = (ry->sideDistY - ry->deltaDistY);
 			
-			int	lineHeight = (int)(H / perpWallDist);
+			int	lineHeight = (int)(H / ry->perpWallDist);
 
 			int	drawStart = -lineHeight / 2 + H / 2;
 			if (drawStart < 0)
@@ -117,10 +191,20 @@ int	RY(t_lch *lch)
 			//ColorRGB color;
 			//asig color
 			int	color = 2;
-			if (side == 1)
-				color = color / 2;
-			printRay(lch, drawStart, drawEnd, x, color);
-			x++;
+			switch(worldMap[ry->mapX][ry->mapY])
+			{
+				case 1: color = 0x335BFF;
+					break;
+				case 2: color = 0xFF3350;
+					break;
+				case 3: color = 0xEDFF33;
+					break;
+				case 4: color = 0x49FF33;
+					break;
+				default: color = 0x000000;
+					break;
+			}
+			printRay3(lch, drawStart, drawEnd, x, color);
 			//draw pixel of  sprite as a vertical line
 		}
 	return (0);

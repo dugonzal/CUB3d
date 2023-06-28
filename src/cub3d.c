@@ -13,11 +13,14 @@ int	init_lch_var(t_lch *lch)
 {
 	t_map	*map;
 	t_img	*img;
+	t_ry	*ry;//
 
 	map = (t_map *)malloc(sizeof(t_map));
 	img = (t_img *)malloc(sizeof(t_img));
+	ry = (t_ry *)malloc(sizeof(t_ry));//
 	lch->map = map;
 	lch->img = img;
+	lch->ry = ry;//
 	map->DIRC = (char **)malloc(sizeof(char *) * 7);
 	map->DIRC[6] = NULL;
 	if (!map || !img)

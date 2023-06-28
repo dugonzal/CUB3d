@@ -20,14 +20,107 @@ void	write_line(t_lch *lch, int x, int y, int color)
 	mlx_put_image_to_window(lch->mlx, lch->mlx_win, img->img_w, x, y);
 }
 
+void	moveCamera(t_lch *lch, double moveSpeed, int i)
+{
+	t_ry *ry;
+
+	ry = lch->ry;
+	if (i == 1)
+	{
+		if (lch->map->map[(int)(ry->posX + ry->dirX * moveSpeed)][(int)(ry->posY)] != '1')
+			ry->posX += ry->dirX * moveSpeed;
+		if (lch->map->map[(int)(ry->posX)][(int)(ry->posY + ry->dirY * moveSpeed)] != '1')
+			ry->posY += ry->dirY * moveSpeed;
+	}
+	else
+	{
+		if (lch->map->map[(int)(ry->posX - ry->dirX * moveSpeed)][(int)(ry->posY)] != '1')
+			ry->posX -= ry->dirX * moveSpeed;
+		if (lch->map->map[(int)(ry->posX)][(int)(ry->posY - ry->dirY * moveSpeed)] != '1')
+			ry->posY -= ry->dirY * moveSpeed;
+	}
+}
+
+void	rotCamera(t_ry *ry, double rotSpeed)
+{
+	double	oldDirX;
+	double	oldPlanerX;
+
+	oldDirX = ry->dirX;
+	oldPlanerX = ry->planeX;
+	ry->dirX = ry->dirX * cos(rotSpeed) - ry->dirY * sin(rotSpeed);
+	ry->dirY = oldDirX * sin(rotSpeed) + ry->dirY * cos(rotSpeed);
+	ry->planeX = ry->planeX * cos(rotSpeed) - ry->planeY * sin(rotSpeed);
+	ry->planeY = oldPlanerX * sin(rotSpeed) + ry->planeY * cos(rotSpeed);
+	printf("%f\n", ry->planeX);
+}
+
 //uso del teclado
+void	print_screen(t_lch *lch)
+{
+	int	y = 0;
+	int x = 0;
+
+	while(x++ < W)
+	{
+		my_mlx_pixel_put(lch->img, x, y, 0x000000);
+		if (x == W)
+		{
+			y++;
+			if (y == H / 2)
+				break;
+			x = 0;
+		}
+	}
+	x = 0;
+	while(x++ < W)
+	{
+		my_mlx_pixel_put(lch->img, x, y, 0x000000);
+		if (x == W)
+		{
+			y++;
+			if (y == H)
+				break;
+			x = 0;
+		}
+	}
+	RY(lch);
+	//raycasting(lch);
+	//ryc(lch);
+	mlx_put_image_to_window(lch->mlx, lch->mlx_win, lch->img->img_w, 0, 0);
+}
+
 int	keyhook(int keycode, t_lch *lch)
 {
-	(void)lch;
 	if (keycode == 53)
 		exit(1);
-	else
-		printf("Keycode -> %d\n", keycode);
+	//else
+	//	printf("Keycode -> %d\n", keycode);
+	//126 arriba, 123 der, 124, iz, 125 abajo
+	if (keycode == 126)
+	{
+		mlx_clear_window(lch->mlx, lch->mlx_win);
+		moveCamera(lch, 0.33, 1);
+		print_screen(lch);
+	}
+	else if (keycode == 125)
+	{
+		mlx_clear_window(lch->mlx, lch->mlx_win);
+		moveCamera(lch, 0.33, -1);
+		print_screen(lch);
+	}
+	else if (keycode == 124)
+	{
+		mlx_clear_window(lch->mlx, lch->mlx_win);
+		rotCamera(lch->ry, (10 * (M_PI / 180)));
+		print_screen(lch);
+	}
+	else if (keycode == 123)
+	{
+		mlx_clear_window(lch->mlx, lch->mlx_win);
+		rotCamera(lch->ry, -(10 * (M_PI / 180)));
+		print_screen(lch);
+	}
 	return (0);
 }
 
@@ -46,51 +139,24 @@ t_img	*init_img(t_lch *lch)
 	return (img);
 }
 
+
 //incia mlx y la ventana
 int	init_mlx(t_lch *lch)
 {
-	//t_img	*img = lch->img;
-
 	lch->mlx = mlx_init();
-	lch->mlx_win = mlx_new_window(lch->mlx, 2001, 1001, "");
+	lch->mlx_win = mlx_new_window(lch->mlx, W + 1, H + 1, "");
 
 	//RY(lch);
 	//lch->img = init_img(lch);
+	init_ry(lch->ry);
 	
 	
 	
 	//void *screm_img = mlx_new_image(lch->mlx, 2001, 1001);
-	lch->img->img_w = mlx_new_image(lch->mlx, 2001, 1001);
+	lch->img->img_w = mlx_new_image(lch->mlx, W + 1, H + 1);
 	lch->img->addr = mlx_get_data_addr(lch->img->img_w, &lch->img->bits_per_pixel, &lch->img->line_length, &lch->img->endian);
-	int	y = 0;
-	int x = 0;
-	while(x++ < 2000)
-	{
-		my_mlx_pixel_put(lch->img, x, y, 0x00FF0000);
-		if (x == 2000)
-		{
-			y++;
-			if (y == 500)
-				break;
-			x = 0;
-		}
-	}
-	x = 0;
-	while(x++ < 2000)
-	{
-		my_mlx_pixel_put(lch->img, x, y, 0x339CFF);
-		if (x == 2000)
-		{
-			y++;
-			if (y == 1000)
-				break;
-			x = 0;
-		}
-	}
-	//RY(lch);
-	raycasting(lch);
-	mlx_put_image_to_window(lch->mlx, lch->mlx_win, lch->img->img_w, 0, 0);
 
+	print_screen(lch);
 
 	// crea una imagen
 	// pone el pixel en la pantalla
@@ -102,7 +168,7 @@ int	init_mlx(t_lch *lch)
 	// poner la imagen en la pantalla
 
 
-	mlx_key_hook(lch->mlx_win, keyhook, &lch);//ft provisional
+	mlx_key_hook(lch->mlx_win, keyhook2, lch);//ft provisional
 	mlx_loop(lch->mlx);
 	return (0);
 }
