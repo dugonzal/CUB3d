@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 12:37:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/26 21:49:43 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/30 23:30:53 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,23 @@ typedef struct s_img
 	void	*img_w;
 }			t_img;
 
+typedef struct s_player
+{
+	int		x;
+	int		y;
+	char	dir;
+	int		plane;
+}			t_player;
+	
 typedef struct s_game
 {
 	void			*mlx;
 	void			*mlx_win;
 	struct s_img	*img;
 	struct s_map	*map;
+	struct s_player	*player;
 }			t_game;
+
 
 
 int		len_fd(int fd);

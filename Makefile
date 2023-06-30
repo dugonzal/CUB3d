@@ -6,7 +6,7 @@
 #    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/15 12:31:04 by Dugonzal          #+#    #+#              #
-#    Updated: 2023/06/26 21:53:36 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/06/30 22:58:36 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ val 		:=  valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes
 SANI 		:= -fsanitize=address
 
 PARSER_DIR		:= parser/
-PARSER_FILES	:= read_fd parser
+PARSER_FILES	:= read_fd parser flood_fill
 
 SRC_FILES	+= $(addprefix $(PARSER_DIR),$(PARSER_FILES))
 SRC_FILES	+= cub3d utils 
