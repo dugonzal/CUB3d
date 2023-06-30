@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:44:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/30 23:32:22 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/06/30 23:42:08 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,22 +54,20 @@ int	check_map(t_game *game)
   int count;
 
   count = 0;
-  i = 0;
-  while (game->map->map[i])
+  i = -1;
+  while (game->map->map[++i])
   {
-	j = 0;
-	while (game->map->map[i][j])
-	{
-	  if (search("NESW", game->map->map[i][j]))
+	  j = -1;
+	  while (game->map->map[i][++j])
 	  {
-		count++;
-		game->player->x = j;
-		game->player->y = i;
-		game->player->dir = game->map->map[i][j];
+		if (search("NESW", game->map->map[i][j]))
+		{
+		  count++;
+		  game->player->x = j;
+		  game->player->y = i;
+		  game->player->dir = game->map->map[i][j];
+		}
 	  }
-	  j++;
-	}
-	i++;
   }
   if (count != 1)
 	return (1);
@@ -94,5 +92,7 @@ int parser(t_game *game, char **av)
 	return (err_ret("Error: Invalid file: Map"));
   }
   printf ("x: %d\ny: %d\ndir: %c\n", game->player->x, game->player->y, game->player->dir);
+  handler_flood_fill(game);
+  print (game->map->map);
   return  (0);
 }
