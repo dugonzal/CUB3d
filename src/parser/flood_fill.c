@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 22:57:55 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/01 00:21:49 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/01 00:23:04 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void flood_fill(t_game *game,char **map, int x, int y, int len_x, int len_y)
 		return ;
 	if (map[y][x] == game->player->dir || map[y][x] == '0')
 	{
-
 	  map[y][x] = 'F';
 	  flood_fill (game, map, x, y - 1, len_x, len_y);
 	  flood_fill (game, map, x, y + 1, len_x, len_y);
