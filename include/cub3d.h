@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 12:37:30 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/30 23:41:17 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/02 13:46:41 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_game
 
 
 
+void	*free_array(char **str);
 void	handler_flood_fill(t_game *game);
 int		len_fd(int fd);
 void	read_fd(t_game *game, int fd, char *av);

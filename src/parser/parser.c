@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:44:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/02 13:05:15 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/02 13:59:27 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,26 @@ void get_map(t_game *game)
   int i;
   int j;
 
-  j = -1;
-  i = -1;
+  j = 0;
+  i = 0;
   game->map->map = ft_calloc(sizeof(char *), len_map(game) + 1);
-  while (game->map->buffer[++i])
+  while (game->map->buffer[i])
+  {
 	if (search(game->map->buffer[i], '1') \
 	&& !search("NESWFC", game->map->buffer[i][0]))
-		game->map->map[++j] = ft_strdup(game->map->buffer[i]);
+	{
+		game->map->map[j] = ft_strdup(game->map->buffer[i]);
+		j++;
+	}
+	else if (j && !search(game->map->buffer[i], '1'))
+	{
+		free(game->player);
+		free_array(game->map->buffer);
+		free_array(game->map->map);
+		return (err("Invalid file: map not end file"));
+	}
+	i++;
+  }
 }
 
 /*
@@ -93,6 +106,6 @@ int parser(t_game *game, char **av)
   }
   printf ("x: %d\ny: %d\ndir: %c\n", game->player->x, game->player->y, game->player->dir);
 //  handler_flood_fill(game);
-//  print (game->map->map);
+  print (game->map->map);
   return  (0);
 }
