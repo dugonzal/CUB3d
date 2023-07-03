@@ -1,9 +1,8 @@
 #include "../../include/cub3d.h"
 
-void	printRay(t_lch *lch, int start, int end, int x, int color)
+void	printRay(t_lch *lch, int start, int end, int x)//quitar color
 {
 	int	i;
-	(void)color;
 
 	i = start;
 	while (i++ < end)
@@ -12,26 +11,22 @@ void	printRay(t_lch *lch, int start, int end, int x, int color)
 
 void	wall_dist(t_lch *lch, t_ry *ry, int side, int x)
 {
-	int	lineHeight;
-	int	drawStart;
-	int	drawEnd;
+	int	line_height;
+	int	draw_start;
+	int	draw_end;
 
 	if (side == 0)
 		ry->perpWallDist = (ry->sideDistX - ry->deltaDistX);
 	else
 		ry->perpWallDist = (ry->sideDistY - ry->deltaDistY);
-	lineHeight = (int)(H / ry->perpWallDist);
-	drawStart = -lineHeight / 2 + H / 2;
-	drawEnd = lineHeight / 2 + H / 2;
-	if (drawStart < 0)
-		drawStart = 0;
-	if (drawEnd >= H)
-		drawEnd = H - 1;
-	//ft_color
-	int	color = 0x33FF33;
-	if (side == 1)
-		color = 0x111111;
-	printRay(lch, drawStart, drawEnd, x, 0x33FF33);
+	line_height = (int)(H / ry->perpWallDist);
+	draw_start = -line_height / 2 + H / 2;
+	draw_end = line_height / 2 + H / 2;
+	if (draw_start < 0)
+		draw_start = 0;
+	if (draw_end >= H)
+		draw_end = H - 1;
+	printRay(lch, draw_start, draw_end, x);
 }
 
 int	hit_wall(t_ry *ry, t_map *map)
@@ -55,7 +50,7 @@ int	hit_wall(t_ry *ry, t_map *map)
 			ry->mapY += ry->stepY;
 			side = 1;
 		}
-		if (map->map[ry->mapX][ry->mapY] != '0')
+		if (map->map[ry->mapX][ry->mapY] == '1')
 			hit = 1;
 	}
 	return (side);
@@ -88,7 +83,7 @@ void	set_step(t_ry *ry)
 void	init_ry(t_ry *ry)
 {
 	ry->posX = 12;
-	ry->posY = 25;
+	ry->posY = 26;
 	ry->dirX = 1;
 	ry->dirY = 0;
 	ry->planeX = 0;
@@ -114,37 +109,23 @@ int	raycasting(t_lch *lch)
 
 	map = lch->map;
 	ry = lch->ry;
-	//ry = lch->ry;
-	//ry = (t_ry *)malloc(sizeof(t_ry));
-
-	//init_ry(ry);
-	
 	x = 0;
 	while (x++ < W)
 	{
-		//----------
 		ry->cameraX = 2 * x / (double)W - 1;
 		ry->rayDirX = ry->dirX + ry->planeX * ry->cameraX;
 		ry->rayDirY = ry->dirY + ry->planeY * ry->cameraX;
-		//----------
 		ry->mapX = (int)ry->posX;
 		ry->mapY = (int)ry->posY;
-		ry->deltaDistX = (ry->rayDirX == 0) ? 1e30 : fabs(1 / ry->rayDirX);
-		ry->deltaDistY = (ry->rayDirX == 0) ? 1e30 : fabs(1 / ry->rayDirY);
-		//ry->deltaDistX = sqrt(1 + (ry->rayDirY * ry->rayDirY) / (ry->rayDirX * ry->rayDirX));
-		//ry->deltaDistY = sqrt(1 + (ry->rayDirX * ry->rayDirX) / (ry->rayDirY * ry->rayDirY));
-
-		/*if (1 / ry->rayDirX < 0 || 1 / ry->rayDirY < 0)
-		{
-			printf("deltaDistX->%f\n", ry->deltaDistX);
-			printf("deltaDistY->%f\n", ry->deltaDistY);
-		}*/
-
+		ry->deltaDistX = fabs(1 / ry->rayDirX);
+		ry->deltaDistY = fabs(1 / ry->rayDirY);
+		if (1 / ry->deltaDistX == 0)
+			ry->deltaDistX = 1e30;
+		if (1 / ry->deltaDistY == 0)
+			ry->deltaDistY = 1e30;
 		set_step(ry);
 		side = hit_wall(ry, map);
 		wall_dist(lch, ry, side, x);
 	}
-	//free(lch->ry);
-	//lch->ry = ry;
 	return (0);
 }

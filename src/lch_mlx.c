@@ -27,16 +27,16 @@ void	moveCamera(t_lch *lch, double moveSpeed, int i)
 	ry = lch->ry;
 	if (i == 1)
 	{
-		if (lch->map->map[(int)(ry->posX + ry->dirX * moveSpeed)][(int)(ry->posY)] != '1')
+		if (lch->map->map[(int)(ry->posX + ry->dirX * moveSpeed)][(int)(ry->posY)] != '2')
 			ry->posX += ry->dirX * moveSpeed;
-		if (lch->map->map[(int)(ry->posX)][(int)(ry->posY + ry->dirY * moveSpeed)] != '1')
+		if (lch->map->map[(int)(ry->posX)][(int)(ry->posY + ry->dirY * moveSpeed)] != '2')
 			ry->posY += ry->dirY * moveSpeed;
 	}
 	else
 	{
-		if (lch->map->map[(int)(ry->posX - ry->dirX * moveSpeed)][(int)(ry->posY)] != '1')
+		if (lch->map->map[(int)(ry->posX - ry->dirX * moveSpeed)][(int)(ry->posY)] != '2')
 			ry->posX -= ry->dirX * moveSpeed;
-		if (lch->map->map[(int)(ry->posX)][(int)(ry->posY - ry->dirY * moveSpeed)] != '1')
+		if (lch->map->map[(int)(ry->posX)][(int)(ry->posY - ry->dirY * moveSpeed)] != '2')
 			ry->posY -= ry->dirY * moveSpeed;
 	}
 }
@@ -52,7 +52,6 @@ void	rotCamera(t_ry *ry, double rotSpeed)
 	ry->dirY = oldDirX * sin(rotSpeed) + ry->dirY * cos(rotSpeed);
 	ry->planeX = ry->planeX * cos(rotSpeed) - ry->planeY * sin(rotSpeed);
 	ry->planeY = oldPlanerX * sin(rotSpeed) + ry->planeY * cos(rotSpeed);
-	printf("%f\n", ry->planeX);
 }
 
 //uso del teclado
@@ -146,6 +145,16 @@ int	init_mlx(t_lch *lch)
 	lch->mlx = mlx_init();
 	lch->mlx_win = mlx_new_window(lch->mlx, W + 1, H + 1, "");
 
+
+	//----
+	t_img	*data;
+	int	z = 64;
+	data = (t_img *)malloc(sizeof(t_img));
+	data->img = "/Users/masla-la/Desktop/Cursus/P5/Cub3d/cub3d_2/img/123.xpm";
+	data->img_w = mlx_xpm_file_to_image(lch->mlx, data->img, &z, &z);
+	data->addr = mlx_get_data_addr(data->img_w, &data->bits_per_pixel, &data->line_length, &data->endian);
+	lch->data = data;
+	//----
 	//RY(lch);
 	//lch->img = init_img(lch);
 	init_ry(lch->ry);

@@ -27,6 +27,7 @@ typedef struct s_lch
 	int				width;//tamaño de la ventana
 	int				heigth;
 	struct s_img	*img;
+	struct s_img	*data;
 	struct s_map	*map;
 	struct s_ry		*ry;
 }			t_lch;
