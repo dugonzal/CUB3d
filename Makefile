@@ -1,6 +1,6 @@
 NAME = cub3d
 
-FILES = cub3d read_map utils check_map lch_mlx /raycasting/raycasting /raycasting/ryc RY
+FILES = cub3d read_map utils check_map lch_mlx /raycasting/raycasting /raycasting/ryc RY key_hook
 
 F = $(addprefix ./src/, $(FILES))
 SRC = $(addsuffix .c, $(F))

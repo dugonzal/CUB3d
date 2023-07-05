@@ -52,6 +52,48 @@ int	get_tex_color(int x, int y, int w, int h, void *ptr)
 
 }
 
+int	keyhook3(t_lch *lch)
+{
+	t_ry	*ry = lch->ry;
+	double	moveSpeed = 0.33;
+	double	rotSpeed = 3 * (M_PI / 180);
+
+	if (lch->x == 1)
+	{
+		if(worldMap[(int)(ry->posX + ry->dirX * moveSpeed)][(int)(ry->posY)] == false) ry->posX += ry->dirX * moveSpeed;
+    	if(worldMap[(int)(ry->posX)][(int)(ry->posY + ry->dirY * moveSpeed)] == false) ry->posY += ry->dirY * moveSpeed;
+	}
+	else if (lch->x == 2)
+	{
+		if(worldMap[(int)(ry->posX - ry->dirX * moveSpeed)][(int)(ry->posY)] == false) ry->posX -= ry->dirX * moveSpeed;
+		if(worldMap[(int)(ry->posX)][(int)(ry->posY - ry->dirY * moveSpeed)] == false) ry->posY -= ry->dirY * moveSpeed;
+	}
+	else if (lch->x == -1)
+	{
+		double oldDirX = ry->dirX;
+    	ry->dirX = ry->dirX * cos(-rotSpeed) - ry->dirY * sin(-rotSpeed);
+    	ry->dirY = oldDirX * sin(-rotSpeed) + ry->dirY * cos(-rotSpeed);
+    	double oldPlaneX = ry->planeX;
+    	ry->planeX = ry->planeX * cos(-rotSpeed) - ry->planeY * sin(-rotSpeed);
+    	ry->planeY = oldPlaneX * sin(-rotSpeed) + ry->planeY * cos(-rotSpeed);
+	}
+	else if (lch->x == -2)
+	{
+		double oldDirX = ry->dirX;
+    	ry->dirX = ry->dirX * cos(rotSpeed) - ry->dirY * sin(rotSpeed);
+    	ry->dirY = oldDirX * sin(rotSpeed) + ry->dirY * cos(rotSpeed);
+    	double oldPlaneX = ry->planeX;
+    	ry->planeX = ry->planeX * cos(rotSpeed) - ry->planeY * sin(rotSpeed);
+    	ry->planeY = oldPlaneX * sin(rotSpeed) + ry->planeY * cos(rotSpeed);
+	}
+	if (lch->x != 0 || lch->y != 0)
+	{
+		mlx_clear_window(lch->mlx, lch->mlx_win);
+		print_screen(lch);
+	}
+	return (0);
+}
+
 int	keyhook2(int keycode, t_lch *lch)
 {
 	t_ry *ry = lch->ry;

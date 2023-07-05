@@ -22,6 +22,9 @@
 
 typedef struct s_lch
 {
+	int				x;
+	int				y;
+
 	void			*mlx;
 	void			*mlx_win;
 	int				width;//tamaño de la ventana
@@ -98,11 +101,18 @@ int		init_mlx(t_lch *lch);
 
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 
+//--------------------------------------
 int	RY(t_lch *lch);
 int	raycasting(t_lch *lch);
 void	init_ry(t_ry *ry);
 int		ryc(t_lch *lch);
-int	keyhook2(int keycode, t_lch *lch);
 void	print_screen(t_lch *lch);
+
+//key prees and release
+int	key_p(int key, t_lch *lch);
+int	key_rl(int key, t_lch *lch);
+//keyhook pruebas
+int	keyhook3(t_lch *lch);
+int	keyhook2(int keycode, t_lch *lch);
 
 #endif

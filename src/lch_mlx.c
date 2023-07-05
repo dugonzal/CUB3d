@@ -196,7 +196,13 @@ int	init_mlx(t_lch *lch)
 	// poner la imagen en la pantalla
 
 
-	mlx_key_hook(lch->mlx_win, keyhook2, lch);//ft provisional
+	//mlx_do_key_autorepeaton(lch->mlx);
+	mlx_hook(lch->mlx_win, 02, 0, key_p, lch);
+	mlx_hook(lch->mlx_win, 03, 0, key_rl, lch);
+	//mlx_key_hook(lch->mlx_win, keyhook3, lch);//ft provisional
+	mlx_loop_hook(lch->mlx, keyhook3, lch);
+	//mlx_do_sync(lch->mlx_win);
+	//mlx_do_key_autorepeatoff(lch->mlx);
 	mlx_loop(lch->mlx);
 	return (0);
 }
