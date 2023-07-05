@@ -13,7 +13,6 @@ void	write_line(t_lch *lch, int x, int y, int color)
 	t_img	*img;
 
 	img = (t_img *)malloc(sizeof(t_img));
-	printf("123\n");
 	img->img_w = mlx_new_image(lch->mlx, 1920, 1080);
 	img->addr = mlx_get_data_addr(img->img_w, &img->bits_per_pixel, &img->line_length, &img->endian);
 	my_mlx_pixel_put(img, 10, 10, color);
@@ -153,22 +152,22 @@ int	init_mlx(t_lch *lch)
 	t_img	*data4;
 	int	z = 64;
 	data = (t_img *)malloc(sizeof(t_img));
-	data->img = "/Users/masla-la/Desktop/Cursus/P5/Cub3d/cub3d_2/img/123.xpm";
+	data->img = "../img/123.xpm";
 	data->img_w = mlx_xpm_file_to_image(lch->mlx, data->img, &z, &z);
 	data->addr = mlx_get_data_addr(data->img_w, &data->bits_per_pixel, &data->line_length, &data->endian);
 	lch->data = data;
 	data2 = (t_img *)malloc(sizeof(t_img));
-	data2->img = "/Users/masla-la/Desktop/Cursus/P5/Cub3d/cub3d_2/img/bookshelf.xpm";
+	data2->img = "../img/bookshelf.xpm";
 	data2->img_w = mlx_xpm_file_to_image(lch->mlx, data2->img, &z, &z);
 	data2->addr = mlx_get_data_addr(data2->img_w, &data2->bits_per_pixel, &data2->line_length, &data2->endian);
 	lch->data2 = data2;
 	data3 = (t_img *)malloc(sizeof(t_img));
-	data3->img = "/Users/masla-la/Desktop/Cursus/P5/Cub3d/cub3d_2/img/wood3.xpm";
+	data3->img = "..img/wood3.xpm";
 	data3->img_w = mlx_xpm_file_to_image(lch->mlx, data3->img, &z, &z);
 	data3->addr = mlx_get_data_addr(data3->img_w, &data3->bits_per_pixel, &data3->line_length, &data3->endian);
 	lch->data3 = data3;
 	data4 = (t_img *)malloc(sizeof(t_img));
-	data4->img = "/Users/masla-la/Desktop/Cursus/P5/Cub3d/cub3d_2/img/bricksx64.xpm";
+	data4->img = "..img/bricksx64.xpm";
 	data4->img_w = mlx_xpm_file_to_image(lch->mlx, data4->img, &z, &z);
 	data4->addr = mlx_get_data_addr(data4->img_w, &data4->bits_per_pixel, &data4->line_length, &data4->endian);
 	lch->data4 = data4;
