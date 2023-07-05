@@ -285,7 +285,23 @@ int	RY(t_lch *lch)
 			{
 				int	texY = (int)texX & (64 - 1);
 				texPos += step;
-				int	color = get_tex_color((int)texPos, texY, 64, 64, data->addr);
+				//
+				int z;
+				z = 0;
+				if (side)
+					z = (ry->rayDirY < 0) ? (1) : (0);
+				else
+					z = (ry->rayDirX < 0) ? (2) : (3);
+				//
+				if (z == 1)
+					data = lch->data2;
+				else if (z == 0)
+					data = lch->data;
+				else if (z == 2)
+					data = lch->data3;
+				else if (z == 3)
+					data = lch->data4;
+				int	color = get_tex_color((int)texY, texPos, 64, 64, data->addr);
 				my_mlx_pixel_put(lch->img, x, y, color);
 			}
 

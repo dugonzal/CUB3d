@@ -28,6 +28,9 @@ typedef struct s_lch
 	int				heigth;
 	struct s_img	*img;
 	struct s_img	*data;
+	struct s_img	*data2;
+	struct s_img	*data3;
+	struct s_img	*data4;
 	struct s_map	*map;
 	struct s_ry		*ry;
 }			t_lch;
