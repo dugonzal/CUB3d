@@ -9,6 +9,7 @@ FILES =	cub3d\
 		check_map\
 		lch_mlx\
 		key_hook\
+		camera\
 		$(RY)
 
 F = $(addprefix ./src/, $(FILES))

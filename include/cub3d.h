@@ -122,6 +122,7 @@ int	raycasting(t_lch *lch);
 void	init_ry(t_ry *ry);
 int		ryc(t_lch *lch);
 void	print_screen(t_lch *lch);
+//--------------------------------------
 
 //Print_Text
 t_img	*select_text(t_lch *lch, int side);
@@ -129,11 +130,15 @@ int		get_text_color(int x, int y, void *ptr);
 int		text_side(t_ry *ry, int side);
 void	print_ray(t_lch *lch, int draw[2], int x, int side);
 
-//key prees and release
+//KeyHooks
 int	key_p(int key, t_lch *lch);
 int	key_rl(int key, t_lch *lch);
 int	keyhook(t_lch *lch);
+
+//Camera FT
 void	rot_camera(t_ry *ry, double rot_speed);
+void	move_camera_h(t_lch *lch, double move_speed, int i);
+void	move_camera_v(t_lch *lch, double move_speed, int i);
 
 
 //keyhook pruebas
