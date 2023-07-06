@@ -1,32 +1,24 @@
 #include "../../include/cub3d.h"
 
-void	printRay(t_lch *lch, int start, int end, int x)//quitar color
-{
-	int	i;
-
-	i = start;
-	while (i++ < end)
-		my_mlx_pixel_put(lch->img, x, i, 0x33FF5B);
-}
-
 void	wall_dist(t_lch *lch, t_ry *ry, int side, int x)
 {
 	int	line_height;
-	int	draw_start;
-	int	draw_end;
+	int	draw[2];
 
 	if (side == 0)
-		ry->perpWallDist = (ry->sideDistX - ry->deltaDistX);
+		ry->perp_wall_dist = (ry->side_dist_x - ry->delta_dist_x);
 	else
-		ry->perpWallDist = (ry->sideDistY - ry->deltaDistY);
-	line_height = (int)(H / ry->perpWallDist);
-	draw_start = -line_height / 2 + H / 2;
-	draw_end = line_height / 2 + H / 2;
-	if (draw_start < 0)
-		draw_start = 0;
-	if (draw_end >= H)
-		draw_end = H - 1;
-	printRay(lch, draw_start, draw_end, x);
+		ry->perp_wall_dist = (ry->side_dist_y - ry->delta_dist_y);
+	line_height = (int)(H / ry->perp_wall_dist);
+	draw[0] = -line_height / 2 + H / 2;
+	draw[1] = line_height / 2 + H / 2;
+	if (draw[0] < 0)
+		draw[0] = 0;
+	if (draw[1] >= H)
+		draw[1] = H - 1;
+	ry->step = 1.0 * 64 / line_height;
+	ry->tex_pos = (draw[0] - H / 2 + line_height / 2) * ry->step;
+	print_ray(lch, draw, x, side);
 }
 
 int	hit_wall(t_ry *ry, t_map *map)
@@ -38,19 +30,19 @@ int	hit_wall(t_ry *ry, t_map *map)
 	side = 0;
 	while (hit == 0)
 	{
-		if (ry->sideDistX < ry->sideDistY)
+		if (ry->side_dist_x < ry->side_dist_y)
 		{
-			ry->sideDistX += ry->deltaDistX;
-			ry->mapX += ry->stepX;
+			ry->side_dist_x += ry->delta_dist_x;
+			ry->map_x += ry->step_x;
 			side = 0;
 		}
 		else
 		{
-			ry->sideDistY += ry->deltaDistY;
-			ry->mapY += ry->stepY;
+			ry->side_dist_y += ry->delta_dist_y;
+			ry->map_y += ry->step_y;
 			side = 1;
 		}
-		if (map->map[ry->mapX][ry->mapY] == '1')
+		if (map->map[ry->map_x][ry->map_y] == '1')
 			hit = 1;
 	}
 	return (side);
@@ -58,46 +50,37 @@ int	hit_wall(t_ry *ry, t_map *map)
 
 void	set_step(t_ry *ry)
 {
-	if (ry->rayDirX < 0)
+	if (ry->ray_dir_x < 0)
 	{
-		ry->stepX = -1;
-		ry->sideDistX = (ry->posX - ry->mapX) * ry->deltaDistX;
+		ry->step_x = -1;
+		ry->side_dist_x = (ry->pos_x - ry->map_x) * ry->delta_dist_x;
 	}
 	else
 	{
-		ry->stepX = 1;
-		ry->sideDistX = (ry->mapX + 1.0 - ry->posX) * ry->deltaDistX;
+		ry->step_x = 1;
+		ry->side_dist_x = (ry->map_x + 1.0 - ry->pos_x) * ry->delta_dist_x;
 	}
-	if (ry->rayDirY < 0)
+	if (ry->ray_dir_y < 0)
 	{
-		ry->stepY = -1;
-		ry->sideDistY = (ry->posY - ry->mapY) * ry->deltaDistY;
+		ry->step_y = -1;
+		ry->side_dist_y = (ry->pos_y - ry->map_y) * ry->delta_dist_y;
 	}
 	else
 	{
-		ry->stepY = 1;
-		ry->sideDistY = (ry->mapY + 1.0 - ry->posY) * ry->deltaDistY;
+		ry->step_y = 1;
+		ry->side_dist_y = (ry->map_y + 1.0 - ry->pos_y) * ry->delta_dist_y;
 	}
 }
 
 void	init_ry(t_ry *ry)
 {
-	ry->posX = 12;
-	ry->posY = 26;
-	ry->dirX = 1;
-	ry->dirY = 0;
-	ry->planeX = 0;
-	ry->planeY = 0.66;
-	ry->stepX = 1;
-	ry->stepY = 1;
-	/*ry->posX = 22;
-	ry->posY = 12;
-	ry->dirX = -1;
-	ry->dirY = 0;
-	ry->planeX = 0;
-	ry->planeY = 0.66;
-	ry->stepX = 1;
-	ry->stepY = 1;*/
+	ry->pos_x = 12;
+	ry->pos_y = 26;
+	ry->dir_x = 1;
+	ry->dir_y = 0;
+	ry->plane_x = 0;
+	ry->plane_y = 1;
+	rot_camera(ry, -(0 * (M_PI / 180)));
 }
 
 int	raycasting(t_lch *lch)
@@ -112,17 +95,17 @@ int	raycasting(t_lch *lch)
 	x = 0;
 	while (x++ < W)
 	{
-		ry->cameraX = 2 * x / (double)W - 1;
-		ry->rayDirX = ry->dirX + ry->planeX * ry->cameraX;
-		ry->rayDirY = ry->dirY + ry->planeY * ry->cameraX;
-		ry->mapX = (int)ry->posX;
-		ry->mapY = (int)ry->posY;
-		ry->deltaDistX = fabs(1 / ry->rayDirX);
-		ry->deltaDistY = fabs(1 / ry->rayDirY);
-		if (1 / ry->deltaDistX == 0)
-			ry->deltaDistX = 1e30;
-		if (1 / ry->deltaDistY == 0)
-			ry->deltaDistY = 1e30;
+		ry->camera_x = 2 * x / (double)W - 1;
+		ry->ray_dir_x = ry->dir_x + ry->plane_x * ry->camera_x;
+		ry->ray_dir_y = ry->dir_y + ry->plane_y * ry->camera_x;
+		ry->map_x = (int)ry->pos_x;
+		ry->map_y = (int)ry->pos_y;
+		ry->delta_dist_x = fabs(1 / ry->ray_dir_x);
+		ry->delta_dist_y = fabs(1 / ry->ray_dir_y);
+		if (1 / ry->delta_dist_x == 0)
+			ry->delta_dist_x = 1e30;
+		if (1 / ry->delta_dist_y == 0)
+			ry->delta_dist_y = 1e30;
 		set_step(ry);
 		side = hit_wall(ry, map);
 		wall_dist(lch, ry, side, x);

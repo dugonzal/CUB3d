@@ -8,51 +8,6 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void	write_line(t_lch *lch, int x, int y, int color)
-{
-	t_img	*img;
-
-	img = (t_img *)malloc(sizeof(t_img));
-	img->img_w = mlx_new_image(lch->mlx, 1920, 1080);
-	img->addr = mlx_get_data_addr(img->img_w, &img->bits_per_pixel, &img->line_length, &img->endian);
-	my_mlx_pixel_put(img, 10, 10, color);
-	mlx_put_image_to_window(lch->mlx, lch->mlx_win, img->img_w, x, y);
-}
-
-void	moveCamera(t_lch *lch, double moveSpeed, int i)
-{
-	t_ry *ry;
-
-	ry = lch->ry;
-	if (i == 1)
-	{
-		if (lch->map->map[(int)(ry->posX + ry->dirX * moveSpeed)][(int)(ry->posY)] != '2')
-			ry->posX += ry->dirX * moveSpeed;
-		if (lch->map->map[(int)(ry->posX)][(int)(ry->posY + ry->dirY * moveSpeed)] != '2')
-			ry->posY += ry->dirY * moveSpeed;
-	}
-	else
-	{
-		if (lch->map->map[(int)(ry->posX - ry->dirX * moveSpeed)][(int)(ry->posY)] != '2')
-			ry->posX -= ry->dirX * moveSpeed;
-		if (lch->map->map[(int)(ry->posX)][(int)(ry->posY - ry->dirY * moveSpeed)] != '2')
-			ry->posY -= ry->dirY * moveSpeed;
-	}
-}
-
-void	rotCamera(t_ry *ry, double rotSpeed)
-{
-	double	oldDirX;
-	double	oldPlanerX;
-
-	oldDirX = ry->dirX;
-	oldPlanerX = ry->planeX;
-	ry->dirX = ry->dirX * cos(rotSpeed) - ry->dirY * sin(rotSpeed);
-	ry->dirY = oldDirX * sin(rotSpeed) + ry->dirY * cos(rotSpeed);
-	ry->planeX = ry->planeX * cos(rotSpeed) - ry->planeY * sin(rotSpeed);
-	ry->planeY = oldPlanerX * sin(rotSpeed) + ry->planeY * cos(rotSpeed);
-}
-
 //uso del teclado
 void	print_screen(t_lch *lch)
 {
@@ -61,7 +16,7 @@ void	print_screen(t_lch *lch)
 
 	while(x++ < W)
 	{
-		my_mlx_pixel_put(lch->img, x, y, 0x000000);
+		my_mlx_pixel_put(lch->img, x, y, 0x000000);//cambiar por el color del mapa
 		if (x == W)
 		{
 			y++;
@@ -73,7 +28,7 @@ void	print_screen(t_lch *lch)
 	x = 0;
 	while(x++ < W)
 	{
-		my_mlx_pixel_put(lch->img, x, y, 0x000000);
+		my_mlx_pixel_put(lch->img, x, y, 0x000000);//cambiar por el color del mapa
 		if (x == W)
 		{
 			y++;
@@ -82,68 +37,16 @@ void	print_screen(t_lch *lch)
 			x = 0;
 		}
 	}
-	RY(lch);
-	//raycasting(lch);
-	//ryc(lch);
+	//RY(lch);
+	raycasting(lch);
 	mlx_put_image_to_window(lch->mlx, lch->mlx_win, lch->img->img_w, 0, 0);
 }
-
-int	keyhook(int keycode, t_lch *lch)
-{
-	if (keycode == 53)
-		exit(1);
-	//else
-	//	printf("Keycode -> %d\n", keycode);
-	//126 arriba, 123 der, 124, iz, 125 abajo
-	if (keycode == 126)
-	{
-		mlx_clear_window(lch->mlx, lch->mlx_win);
-		moveCamera(lch, 0.33, 1);
-		print_screen(lch);
-	}
-	else if (keycode == 125)
-	{
-		mlx_clear_window(lch->mlx, lch->mlx_win);
-		moveCamera(lch, 0.33, -1);
-		print_screen(lch);
-	}
-	else if (keycode == 124)
-	{
-		mlx_clear_window(lch->mlx, lch->mlx_win);
-		rotCamera(lch->ry, (10 * (M_PI / 180)));
-		print_screen(lch);
-	}
-	else if (keycode == 123)
-	{
-		mlx_clear_window(lch->mlx, lch->mlx_win);
-		rotCamera(lch->ry, -(10 * (M_PI / 180)));
-		print_screen(lch);
-	}
-	return (0);
-}
-
-//lee las imagenes
-t_img	*init_img(t_lch *lch)
-{
-	t_img	*img;
-	int		x;
-	int		y;
-
-	x = 0;
-	y = 0;
-	img = lch->img;
-	img->img = "../img/chest.xpm";
-	img->img_w = mlx_xpm_file_to_image(lch->mlx, img->img, &x, &y);
-	return (img);
-}
-
 
 //incia mlx y la ventana
 int	init_mlx(t_lch *lch)
 {
 	lch->mlx = mlx_init();
 	lch->mlx_win = mlx_new_window(lch->mlx, W + 1, H + 1, "");
-
 
 	//----
 	t_img	*data;
@@ -178,30 +81,15 @@ int	init_mlx(t_lch *lch)
 	init_ry(lch->ry);
 	
 	
-	
-	//void *screm_img = mlx_new_image(lch->mlx, 2001, 1001);
 	lch->img->img_w = mlx_new_image(lch->mlx, W + 1, H + 1);
 	lch->img->addr = mlx_get_data_addr(lch->img->img_w, &lch->img->bits_per_pixel, &lch->img->line_length, &lch->img->endian);
 
 	print_screen(lch);
 
-	// crea una imagen
-	// pone el pixel en la pantalla
-	// pone la imagen en la pantalla
-
-
-	// crear una imagen
-	// poner TODS los pixeles
-	// poner la imagen en la pantalla
-
-
-	//mlx_do_key_autorepeaton(lch->mlx);
 	mlx_hook(lch->mlx_win, 02, 0, key_p, lch);
 	mlx_hook(lch->mlx_win, 03, 0, key_rl, lch);
-	//mlx_key_hook(lch->mlx_win, keyhook3, lch);//ft provisional
-	mlx_loop_hook(lch->mlx, keyhook3, lch);
+	mlx_loop_hook(lch->mlx, keyhook, lch);
 	//mlx_do_sync(lch->mlx_win);
-	//mlx_do_key_autorepeatoff(lch->mlx);
 	mlx_loop(lch->mlx);
 	return (0);
 }

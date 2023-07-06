@@ -17,8 +17,8 @@
 # define F	4
 # define C	5
 
-# define W 2000	//2000
-# define H 1000	//1000
+# define W 2000
+# define H 1000
 
 typedef struct s_lch
 {
@@ -46,25 +46,40 @@ typedef struct	s_ry
 	double	dirY;
 	double	planeX;
 	double	planeY;
-
 	double	cameraX;
-
 	double	rayDirX;
 	double	rayDirY;
-
 	double	sideDistX;
 	double	sideDistY;
-
 	double	deltaDistX;
 	double	deltaDistY;
-
 	double	perpWallDist;
-
 	int		mapX;
 	int		mapY;
-
 	int		stepX;
 	int		stepY;
+
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+	double	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	double		step;
+	int		tex_x;
+	double		tex_pos;
 }			t_ry;
 
 
@@ -108,9 +123,19 @@ void	init_ry(t_ry *ry);
 int		ryc(t_lch *lch);
 void	print_screen(t_lch *lch);
 
+//Print_Text
+t_img	*select_text(t_lch *lch, int side);
+int		get_text_color(int x, int y, void *ptr);
+int		text_side(t_ry *ry, int side);
+void	print_ray(t_lch *lch, int draw[2], int x, int side);
+
 //key prees and release
 int	key_p(int key, t_lch *lch);
 int	key_rl(int key, t_lch *lch);
+int	keyhook(t_lch *lch);
+void	rot_camera(t_ry *ry, double rot_speed);
+
+
 //keyhook pruebas
 int	keyhook3(t_lch *lch);
 int	keyhook2(int keycode, t_lch *lch);
