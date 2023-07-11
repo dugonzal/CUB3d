@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:44:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/11 17:37:53 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/11 19:18:14 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,18 @@
 int	len_map(t_game *game)
 {
 	int	i;
+	int j;
 
+	j = 0;
 	i = 0;
 	while (game->map->buffer[i])
 	{
 		if (search(game->map->buffer[i], '1') \
 		&& !search("NESWFC", game->map->buffer[i][0]))
-		  game->map->len_y++;
+		  j++;
 	  i++;
 	}
-	return (game->map->len_y);
+	return (j);
 }
 
 void get_map(t_game *game)
