@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:50:57 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/06/26 22:44:03 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:07:32 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ int len_fd(int fd)
   int	i;
   char	*line;
 
-  i = 0;
   line = get_next_line(fd);
   if (!line)
 	  return (err_ret("Error: Invalid file: No map"));
+  i = 0;
   while (line)
   {
 	i++;
@@ -36,7 +36,6 @@ void read_fd(t_game *game, int fd, char *av)
   int	i;
   char	*line;
   
-  i = 0;
   game->map->buffer = ft_calloc(sizeof(char *), len_fd(fd) + 1);
   fd = ft_open(av, 0);
   if (fd < 0)
@@ -44,6 +43,7 @@ void read_fd(t_game *game, int fd, char *av)
   line = get_next_line(fd);
   if (!line)
 	return (err("Error: Invalid file: No map"));
+  i = 0;
   while (line)
   {
 	game->map->buffer[i] = ft_strdup(line);
