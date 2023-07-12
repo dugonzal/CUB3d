@@ -6,11 +6,18 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:44:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/12 19:50:42 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/12 20:09:51 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+
+void free_error(t_game *game)
+{
+	free(game->player);
+	free_array(game->map->buffer);
+	free(game->map);
+}
 
 // ahora mismo leemos el archivo y lo guardamos en un buffer
 int	len_map(t_game *game)
@@ -27,9 +34,7 @@ int	len_map(t_game *game)
 		  j++;
 		else if (j && !search(game->map->buffer[i], '1'))
 		{
-		  free(game->player);
-		  free_array(game->map->buffer);
-		  free(game->map);
+		  free_error(game);
 		  return (err_ret("Invalid file: map not end file"));
 		}
 		i++;
@@ -117,7 +122,7 @@ int parser(t_game *game, char **av)
   print (game->map->map);
   if (check_map(game))
   {
-	ft_printf ("habra que liberar en algun momento xd\n");
+	free_error(game);
 	return (err_ret(" Invalid file: Map"));
   }
   printf ("x: %d\ny: %d\ndir: %c\n", game->player->x, game->player->y, game->player->dir);
