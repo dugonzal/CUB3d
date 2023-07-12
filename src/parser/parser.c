@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:44:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/12 12:42:16 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/12 15:31:25 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	len_map(t_game *game)
 		{
 		  free(game->player);
 		  free_array(game->map->buffer);
-		  free_array(game->map->map);
+		  free(game->map);
 		  return (err_ret("Invalid file: map not end file"));
 		}
 	  i++;
@@ -108,17 +108,17 @@ int parser(t_game *game, char **av)
   int		fd;
 
   if (ft_strcmp(av[1] + ft_strlen(av[1]) - 4, ".cub"))
-		return  (err_ret("Error: Invalid file: extencion .cub;"));
+		return  (err_ret("Invalid file: extencion .cub;"));
   fd = ft_open(av[1], 0);
   if (fd < 0)
-	return (err_ret("Error: Invalid file: No such file or directory"));
+	return (err_ret("Invalid file: No such file or directory"));
   read_fd(game, fd, av[1]);
   get_map(game);
   print (game->map->map);
   if (check_map(game))
   {
 	ft_printf ("habra que liberar en algun momento xd\n");
-	return (err_ret("Error: Invalid file: Map"));
+	return (err_ret(" Invalid file: Map"));
   }
   printf ("x: %d\ny: %d\ndir: %c\n", game->player->x, game->player->y, game->player->dir);
  // handler_flood_fill(game);

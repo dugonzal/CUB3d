@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:28:50 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/02 13:46:28 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/12 15:29:06 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,13 @@ void *free_array(char **str)
 {
   int i;
 
-  i = -1;
-  while (str[++i])
-	free(str[i]);
+  i = 0;
+  while (str[i])
+  {
+	if (str[i])
+	  free(str[i]);
+	i++;
+  }
   free(str);
   return (NULL);
 }
