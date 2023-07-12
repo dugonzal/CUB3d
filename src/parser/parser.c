@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:44:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/11 19:18:14 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/12 08:23:17 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@ int	len_map(t_game *game)
 		if (search(game->map->buffer[i], '1') \
 		&& !search("NESWFC", game->map->buffer[i][0]))
 		  j++;
+		else if (j && !search(game->map->buffer[i], '1'))
+		{
+		  free(game->player);
+		  free_array(game->map->buffer);
+		  free_array(game->map->map);
+		  return (err_ret("Invalid file: map not end file"));
+		}
 	  i++;
 	}
 	return (j);
@@ -37,7 +44,8 @@ void get_map(t_game *game)
 
   j = 0;
   i = 0;
-  game->map->map = ft_calloc(sizeof(char *), len_map(game) + 1);
+  game->map->len_y = len_map(game);
+  game->map->map = ft_calloc(sizeof(char *), game->map->len_y + 1);
   while (game->map->buffer[i])
   {
 	if (search(game->map->buffer[i], '1') \
@@ -47,13 +55,6 @@ void get_map(t_game *game)
 		if ((int)ft_strlen(game->map->map[j]) > game->map->len_x)
 		  game->map->len_x = ft_strlen(game->map->map[j]);
 		j++;
-	}
-	else if (j && !search(game->map->buffer[i], '1'))
-	{
-		free(game->player);
-		free_array(game->map->buffer);
-		free_array(game->map->map);
-		return (err("Invalid file: map not end file"));
 	}
 	i++;
   }
@@ -67,23 +68,33 @@ void get_map(t_game *game)
 // deberia buscar la ubicacion del jugador en el mapa 
 int	check_map(t_game *game)
 {
-  int i;
-  int j;
+  int x;
+  int y;
   int count;
 
   count = 0;
-  i = -1;
-  while (game->map->map[++i])
+  y = -1;
+  while (game->map->map[++y])
   {
-	  j = -1;
-	  while (game->map->map[i][++j])
+	  x = -1;
+	  while (game->map->map[y][++x])
 	  {
-		if (search("NESW", game->map->map[i][j]))
+		if (!search("01NESW \n", game->map->map[y][x]))
+		  return (1);
+		if (game->map->map[y][x] != ' ' && game->map->map[y][x] != '1' && game->map->map[y][x] != '\n')
+			if (!y || !x || (game->map->len_x  - 1) == x || (game->map->len_y - 1) == y \
+			|| game->map->map[y + 1][x] == ' ' || game->map->map[y - 1][x] == ' ' \
+			|| game->map->map[y][x + 1] == ' ' || game->map->map[y][x - 1] == ' ')
+			{
+			  printf("[%c] \n[%d][%d]\n", game->map->map[y][x], y, x);
+			  return (1);
+			}
+		if (search("NESW", game->map->map[y][x]))
 		{
 		  count++;
-		  game->player->x = j;
-		  game->player->y = i;
-		  game->player->dir = game->map->map[i][j];
+		  game->player->y = y;
+		  game->player->x = x;
+		  game->player->dir = game->map->map[y][x];
 		}
 	  }
   }
