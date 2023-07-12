@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:44:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/12 08:23:17 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/12 08:26:10 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int parser(t_game *game, char **av)
 	return (err_ret("Error: Invalid file: Map"));
   }
   printf ("x: %d\ny: %d\ndir: %c\n", game->player->x, game->player->y, game->player->dir);
-//  handler_flood_fill(game);
+  handler_flood_fill(game);
   print (game->map->map);
   return  (0);
 }
