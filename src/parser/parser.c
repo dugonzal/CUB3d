@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:44:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/12 08:26:10 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/12 12:42:16 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,14 @@ int	check_map(t_game *game)
 	  {
 		if (!search("01NESW \n", game->map->map[y][x]))
 		  return (1);
+		if (game->map->map[y][x] == '\n' && game->map->map[y][x - 1] != '1')
+			return (1);
 		if (game->map->map[y][x] != ' ' && game->map->map[y][x] != '1' && game->map->map[y][x] != '\n')
-			if (!y || !x || (game->map->len_x  - 1) == x || (game->map->len_y - 1) == y \
-			|| game->map->map[y + 1][x] == ' ' || game->map->map[y - 1][x] == ' ' \
-			|| game->map->map[y][x + 1] == ' ' || game->map->map[y][x - 1] == ' ')
-			{
-			  printf("[%c] \n[%d][%d]\n", game->map->map[y][x], y, x);
+			if (!y || !x || (game->map->len_x - 1) == x || (game->map->len_y - 1) == y \
+			|| game->map->map[y][x] == '\n' || game->map->map[y][x] == '\n' \
+			|| game->map->map[y][x + 1] == ' ' || game->map->map[y][x - 1] == ' ' \
+			|| game->map->map[y][x] == ' ' || game->map->map[y][x] == ' ' )
 			  return (1);
-			}
 		if (search("NESW", game->map->map[y][x]))
 		{
 		  count++;
@@ -121,7 +121,7 @@ int parser(t_game *game, char **av)
 	return (err_ret("Error: Invalid file: Map"));
   }
   printf ("x: %d\ny: %d\ndir: %c\n", game->player->x, game->player->y, game->player->dir);
-  handler_flood_fill(game);
-  print (game->map->map);
+ // handler_flood_fill(game);
+  //print (game->map->map);
   return  (0);
 }
