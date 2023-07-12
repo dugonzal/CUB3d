@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:50:57 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/11 13:07:32 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/12 19:42:49 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ void read_fd(t_game *game, int fd, char *av)
   game->map->buffer = ft_calloc(sizeof(char *), len_fd(fd) + 1);
   fd = ft_open(av, 0);
   if (fd < 0)
+  {
+	// hay que limpiar el game->map->buffer
 	return (err("Error: Invalid file: No such file or directory"));
+  }
   line = get_next_line(fd);
   if (!line)
 	return (err("Error: Invalid file: No map"));

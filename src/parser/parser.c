@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:44:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/12 15:31:25 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/12 19:50:42 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	len_map(t_game *game)
 		  free(game->map);
 		  return (err_ret("Invalid file: map not end file"));
 		}
-	  i++;
+		i++;
 	}
 	return (j);
 }
