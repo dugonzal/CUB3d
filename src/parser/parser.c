@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:44:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/13 11:25:28 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/13 14:08:20 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int	check_map(t_game *game)
 		  game->player->y = y;
 		  game->player->x = x;
 		  game->player->dir = game->map->map[y][x];
+		  game->map->map[y][x] = '0';
 		}
 	  }
   }
