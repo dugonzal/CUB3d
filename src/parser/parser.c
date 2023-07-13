@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:44:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/13 14:08:20 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/13 14:09:07 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void free_error(t_game *game)
 {
+	free(game->img);
 	free(game->player);
 	free_array(game->map->buffer);
 	free(game->map);
