@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:44:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/12 20:09:51 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:25:28 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ int	len_map(t_game *game)
 	return (j);
 }
 
+void get_(t_game *game, char *line)
+{
+  printf("[%s]\n", line);
+  (void)game;
+}
+
 void get_map(t_game *game)
 {
   int i;
@@ -53,7 +59,9 @@ void get_map(t_game *game)
   game->map->map = ft_calloc(sizeof(char *), game->map->len_y + 1);
   while (game->map->buffer[i])
   {
-	if (search(game->map->buffer[i], '1') \
+	if (search("NESWFC",game->map->buffer[i][0]))
+		get_(game, game->map->buffer[i]);
+	else if (search(game->map->buffer[i], '1') \
 	&& !search("NESWFC", game->map->buffer[i][0]))
 	{
 		game->map->map[j] = ft_strdup(game->map->buffer[i]);
