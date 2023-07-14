@@ -1,48 +1,73 @@
-NAME = cub3d
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/06/15 12:31:04 by Dugonzal          #+#    #+#              #
+#    Updated: 2023/07/14 11:37:14 by masla-la         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-RY =	raycasting/raycasting\
-		raycasting/print_text
+NAME		:= cub3d
+C			:= clang -g3
+R			:= rm -rf
+CFLAGS		:= -Wall -Wextra -Werror
+SHELL		:= /bin/zsh
+SRC_DIR		:= src/
+OBJ_DIR		:= obj/
+MLX_CF		:= -framework OpenGL -framework AppKit
+MLX_PATH 	:= libs/minilibx_macos/
+val 		:=  valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes
+CFLAGS		+= -fsanitize=address
 
-FILES =	cub3d\
-		read_map\
-		utils\
-		check_map\
-		lch_mlx\
-		key_hook\
-		camera\
-		$(RY)
+PARSER_DIR		:= parser/
+PARSER_FILES	:= read_fd parser
 
-F = $(addprefix ./src/, $(FILES))
-SRC = $(addsuffix .c, $(F))
-OBJ = $(addsuffix .o, $(F))
+RAYCAST_DIR		:= raycasting/
+RAYCAST_FILES	:= camera key_hook lch_mlx print_text raycasting
 
-CC = clang
-CFLAGS = -Wall -Wextra -Werror
-CFLAGS += -Wstring-compare -fsanitize=address -g3
-MLXFLAGS = libmlx.a -framework OpenGL -framework AppKit
+SRC_FILES	+= $(addprefix $(PARSER_DIR),$(PARSER_FILES))
+SRC_FILES	+= $(addprefix $(RAYCAST_DIR),$(RAYCAST_FILES))
+SRC_FILES	+= cub3d utils 
+
+SRC			:= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
+OBJ			:= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
+
+ifeq ($(shell uname), Linux)
+MLX_CF	:= -Llibs/mlx_linux -lmlx_Linux -lXext -lX11
+MLX_PATH := libs/mlx_linux/
+endif
+
+.SILENT:
+
+$(NAME): $(OBJ)
+	make -C $(MLX_PATH) 2> /dev/null
+	echo $(MLX_PATH)
+	cp -r $(MLX_PATH)libmlx.a libs/bin/ 
+	$(CC) $(CFLAGS) $(MLX_CF) $(OBJ) -lm libs/bin/*.a -o $(NAME)
+	echo "\033[32m[✔ ] $(NAME) created game cub3d\033[0m"
+
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	mkdir -p libs/bin
+	mkdir -p $(OBJ_DIR)
+	mkdir -p $(OBJ_DIR)$(PARSER_DIR)
+	mkdir -p $(OBJ_DIR)$(RAYCAST_DIR)
+	# si no tienes cli-git instalado, instala git y ejecuta el comando git clone https://github.com/dugonzal/libft
+	if [[ ! -d "libs/libft" ]]; then git clone https://github.com/dugonzal/libft  && mv libft libs/; fi
+	make -C libs/libft && cp -r libs/libft/libft.a libs/bin/
+	echo "\033[32m[$<]\033[0m $(NAME) created \033[0m"
+	$(C) $(CFLAGS) -c $< -o $@
+	printf "$<"
 
 all: $(NAME)
 
-.c.o: $(SRC)
-	@$(CC) $(CFLAGS) -c -o $@ $<
-
-$(NAME): $(OBJ)
-	@ $(MAKE) -C ./mlx/ 2> /dev/null
-	@ mv ./mlx/libmlx.a .
-	@ $(MAKE) -C ./Get_next_line/
-	@ mv ./Get_next_line/get_next_line.a .
-	@ $(CC) $(CFLAGS) $(OBJ) ./get_next_line.a $(MLXFLAGS) -o $(NAME)
-
 clean:
-	@ $(MAKE) -C ./mlx/ clean
-	@ $(MAKE) -C ./Get_next_line/ clean
-	@ $(RM) $(OBJ)
-
+	$(R) $(NAME)
+	make -C libs/libft clean
 fclean: clean
-	@ $(RM) libmlx.a
-	@ $(RM) get_next_line.a
-	@ $(RM) $(NAME)
-
-re: clean all
-
-.PHONY: all clean fclean re
+	$(R) $(OBJ_DIR) $(NAME) libs/bin
+	make -C $(MLX_PATH) clean
+	make -C libs/libft fclean
+re: fclean all

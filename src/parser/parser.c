@@ -1,0 +1,140 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/26 21:44:48 by Dugonzal          #+#    #+#             */
+/*   Updated: 2023/07/14 11:41:12 by masla-la         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../include/cub3d.h"
+
+void free_error(t_game *game)
+{
+	free(game->img);
+	free(game->ry);
+	free_array(game->map->buffer);
+	free(game->map);
+}
+
+// ahora mismo leemos el archivo y lo guardamos en un buffer
+int	len_map(t_game *game)
+{
+	int	i;
+	int j;
+
+	j = 0;
+	i = 0;
+	while (game->map->buffer[i])
+	{
+		if (search(game->map->buffer[i], '1') \
+		&& !search("NESWFC", game->map->buffer[i][0]))
+		  j++;
+		else if (j && !search(game->map->buffer[i], '1'))
+		{
+		  free_error(game);
+		  return (err_ret("Invalid file: map not end file"));
+		}
+		i++;
+	}
+	return (j);
+}
+
+void get_(t_game *game, char *line)
+{
+  printf("[%s]\n", line);
+  (void)game;
+}
+
+void get_map(t_game *game)
+{
+  int i;
+  int j;
+
+  j = 0;
+  i = 0;
+  game->map->len_y = len_map(game);
+  game->map->map = ft_calloc(sizeof(char *), game->map->len_y + 1);
+  while (game->map->buffer[i])
+  {
+	if (search("NESWFC",game->map->buffer[i][0]))
+		get_(game, game->map->buffer[i]);
+	else if (search(game->map->buffer[i], '1') \
+	&& !search("NESWFC", game->map->buffer[i][0]))
+	{
+		game->map->map[j] = ft_strdup(game->map->buffer[i]);
+		if ((int)ft_strlen(game->map->map[j]) > game->map->len_x)
+		  game->map->len_x = ft_strlen(game->map->map[j]);
+		j++;
+	}
+	i++;
+  }
+}
+
+/*
+0. Excepto por el contenido del mapa, que debe estar siempre al final, 
+1. cada tipo de elemento puede estar establecido en cualquier orden en el archivo.
+*/
+
+// deberia buscar la ubicacion del jugador en el mapa 
+int	check_map(t_game *game)
+{
+  int x;
+  int y;
+  int count;
+
+  count = 0;
+  y = -1;
+  while (game->map->map[++y])
+  {
+	  x = -1;
+	  while (game->map->map[y][++x])
+	  {
+		if (!search("01NESW \n", game->map->map[y][x]))
+		  return (1);
+		if (game->map->map[y][x] == '\n' && game->map->map[y][x - 1] != '1')
+			return (1);
+		if (game->map->map[y][x] != ' ' && game->map->map[y][x] != '1' && game->map->map[y][x] != '\n')
+			if (!y || !x || (game->map->len_x - 1) == x || (game->map->len_y - 1) == y \
+			|| game->map->map[y][x] == '\n' || game->map->map[y][x] == '\n' \
+			|| game->map->map[y][x + 1] == ' ' || game->map->map[y][x - 1] == ' ' \
+			|| game->map->map[y][x] == ' ' || game->map->map[y][x] == ' ' )
+			  return (1);
+		if (search("NESW", game->map->map[y][x]))
+		{
+		  count++;
+		  game->ry->pos_y = x;
+		  game->ry->pos_x = y;
+		  game->ry->dir = game->map->map[y][x];
+		  game->map->map[y][x] = '0';
+		}
+	  }
+  }
+  if (count != 1)
+	return (1);
+  return (0);
+}
+
+int parser(t_game *game, char **av)
+{
+  int		fd;
+
+  if (ft_strcmp(av[1] + ft_strlen(av[1]) - 4, ".cub"))
+		return  (err_ret("Invalid file: extencion .cub;"));
+  fd = ft_open(av[1], 0);
+  if (fd < 0)
+	return (err_ret("Invalid file: No such file or directory"));
+  read_fd(game, fd, av[1]);
+  get_map(game);
+  print (game->map->map);
+  if (check_map(game))
+  {
+	free_error(game);
+	return (err_ret(" Invalid file: Map"));
+  }
+  //printf ("x: %d\ny: %d\ndir: %c\n", game->ry->pos_x, game->ry->pos_y, game->ry->dir);
+  return  (0);
+}

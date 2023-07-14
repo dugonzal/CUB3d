@@ -1,6 +1,6 @@
 #include "../../include/cub3d.h"
 
-void	wall_dist(t_lch *lch, t_ry *ry, int side, int x)
+void	wall_dist(t_game *lch, t_ry *ry, int side, int x)
 {
 	int	line_height;
 	int	draw[2];
@@ -72,18 +72,24 @@ void	set_step(t_ry *ry)
 	}
 }
 
-void	init_ry(t_ry *ry)
+void	init_ry(t_ry *ry)//
 {
-	ry->pos_x = 12;
-	ry->pos_y = 26;
-	ry->dir_x = 1;
+	ry->dir_x = -1;
 	ry->dir_y = 0;
 	ry->plane_x = 0;
-	ry->plane_y = 1;
-	rot_camera(ry, -(0 * (M_PI / 180)));
+	ry->plane_y = 0.66;
+	if (ry->dir == 'N')
+		rot_camera(ry, -(0 * (M_PI / 180)));
+	else if (ry->dir == 'W')
+		rot_camera(ry, -(90 * (M_PI / 180)));
+	else if(ry->dir == 'E')
+		rot_camera(ry, (90 * (M_PI / 180)));
+	else if (ry->dir == 'S')
+		rot_camera(ry, -(180 * (M_PI / 180)));
+	//rot_camera(ry, -(0 * (M_PI / 180)));
 }
 
-int	raycasting(t_lch *lch)
+int	raycasting(t_game *lch)
 {
 	t_map	*map;
 	t_ry	*ry;

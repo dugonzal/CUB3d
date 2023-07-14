@@ -1,6 +1,6 @@
 #include "../../include/cub3d.h"
 
-t_img	*select_text(t_lch *lch, int side)
+t_img	*select_text(t_game *lch, int side)
 {
 	t_ry	*ry;
 
@@ -40,7 +40,7 @@ int	text_side(t_ry *ry, int side)
 	return ((int)(wall_x * (double)64));
 }
 
-void	print_ray(t_lch *lch, int draw[2], int x, int side)
+void	print_ray(t_game *lch, int draw[2], int x, int side)
 {
 	t_ry	*ry;
 	t_img	*text;

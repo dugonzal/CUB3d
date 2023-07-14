@@ -1,31 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/26 21:28:50 by Dugonzal          #+#    #+#             */
+/*   Updated: 2023/07/14 11:19:08 by masla-la         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3d.h"
 
-char	*ft_strdup(const char *src)
+void print(char **str)
 {
-	char	*dest;
-	int		i;
+  int i;
 
-	i = 0;
-	dest = malloc(ft_strlen((char *)(src)) + 1);
-	if (dest == NULL)
-		return (NULL);
-	while (src[i] != 00)
-	{
-		dest[i] = src [i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
+  i = -1;
+  while (str[++i])
+	ft_printf("%s", str[i]);
 }
-
-int	ft_strcmp(char *str, char *str2)
+void *free_array(char **str)
 {
-	int	i;
+  int i;
 
-	i = 0;
-	while (str[i] == str2[i])
-		i++;
-	if (i == (int)ft_strlen(str2))
-		return (1);
-	return (0);
+  i = 0;
+  while (str[i])
+  {
+	if (str[i])
+	  free(str[i]);
+	i++;
+  }
+  free(str);
+  return (NULL);
 }

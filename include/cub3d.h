@@ -5,8 +5,8 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <fcntl.h>
-# include "../get_next_line/get_next_line.h"
-# include "../mlx/mlx.h"
+# include "../libs/libft/include/libft.h"
+# include "../libs/minilibx_macos/mlx.h"
 
 # include <stdbool.h>//
 
@@ -20,7 +20,7 @@
 # define W 2000
 # define H 1000
 
-typedef struct s_lch
+typedef struct s_game
 {
 	int				x;
 	int				y;
@@ -29,6 +29,9 @@ typedef struct s_lch
 	void			*mlx_win;
 	int				width;//tamaño de la ventana
 	int				heigth;
+
+	struct s_img	*img_temp[5];// NO, SO, WE, EA, IMGANE GLOBAL
+	
 	struct s_img	*img;
 	struct s_img	*data;
 	struct s_img	*data2;
@@ -36,29 +39,12 @@ typedef struct s_lch
 	struct s_img	*data4;
 	struct s_map	*map;
 	struct s_ry		*ry;
-}			t_lch;
+}			t_game;
 
 typedef struct	s_ry
 {
-	double	posX;
-	double	posY;
-	double	dirX;
-	double	dirY;
-	double	planeX;
-	double	planeY;
-	double	cameraX;
-	double	rayDirX;
-	double	rayDirY;
-	double	sideDistX;
-	double	sideDistY;
-	double	deltaDistX;
-	double	deltaDistY;
-	double	perpWallDist;
-	int		mapX;
-	int		mapY;
-	int		stepX;
-	int		stepY;
-
+	char	dir;//
+	
 	double	pos_x;
 	double	pos_y;
 	double	dir_x;
@@ -77,9 +63,9 @@ typedef struct	s_ry
 	int		map_y;
 	int		step_x;
 	int		step_y;
-	double		step;
+	double	step;
 	int		tex_x;
-	double		tex_pos;
+	double	tex_pos;
 }			t_ry;
 
 
@@ -95,54 +81,60 @@ typedef struct s_img
 
 typedef struct s_map
 {
+	int		len_y;
+	int		len_x;
+	char	**buffer;
 	char	**map;
-	char	**DIRC;//NO, SO, WE, EA, F, C
+	char	**DIRC;//6//iniciar el ** en 6
 }			t_map;
 
 //Error
 int		ft_error_msg(char *str);
 
 //Read_map
-int		read_map(t_lch *lch, char **av);
-
-//Utils
-char	*ft_strdup(const char *src);
-int		ft_strcmp(char *str, char *str2);
+int		read_map(t_game *lch, char **av);
 
 int		check_walls(t_map *map);
 
 //Launch_MLX
-int		init_mlx(t_lch *lch);
+int		init_mlx(t_game *lch);
 
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 
 //--------------------------------------
-int	RY(t_lch *lch);
-int	raycasting(t_lch *lch);
+int	RY(t_game *lch);
+int	raycasting(t_game *lch);
 void	init_ry(t_ry *ry);
-int		ryc(t_lch *lch);
-void	print_screen(t_lch *lch);
+int		ryc(t_game *lch);
+void	print_screen(t_game *lch);
 //--------------------------------------
 
 //Print_Text
-t_img	*select_text(t_lch *lch, int side);
+t_img	*select_text(t_game *lch, int side);
 int		get_text_color(int x, int y, void *ptr);
 int		text_side(t_ry *ry, int side);
-void	print_ray(t_lch *lch, int draw[2], int x, int side);
+void	print_ray(t_game *lch, int draw[2], int x, int side);
 
 //KeyHooks
-int	key_p(int key, t_lch *lch);
-int	key_rl(int key, t_lch *lch);
-int	keyhook(t_lch *lch);
+int	key_p(int key, t_game *lch);
+int	key_rl(int key, t_game *lch);
+int	keyhook(t_game *lch);
 
 //Camera FT
 void	rot_camera(t_ry *ry, double rot_speed);
-void	move_camera_h(t_lch *lch, double move_speed, int i);
-void	move_camera_v(t_lch *lch, double move_speed, int i);
+void	move_camera_h(t_game *lch, double move_speed, int i);
+void	move_camera_v(t_game *lch, double move_speed, int i);
 
 
 //keyhook pruebas
-int	keyhook3(t_lch *lch);
-int	keyhook2(int keycode, t_lch *lch);
+int	keyhook3(t_game *lch);
+int	keyhook2(int keycode, t_game *lch);
+
+//
+void	*free_array(char **str);
+void	handler_flood_fill(t_game *game);
+void	read_fd(t_game *game, int fd, char *av);
+void	print(char **str);
+int		parser(t_game *game, char **av);
 
 #endif
