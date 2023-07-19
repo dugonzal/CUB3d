@@ -6,7 +6,7 @@
 /*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:28:50 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/14 11:19:08 by masla-la         ###   ########.fr       */
+/*   Updated: 2023/07/17 11:50:29 by masla-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,9 @@ void *free_array(char **str)
   }
   free(str);
   return (NULL);
+}
+
+int	get_int_color(int r, int g, int b)
+{
+	return (r << 16 | g << 8 | b);
 }

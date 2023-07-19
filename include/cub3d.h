@@ -86,6 +86,8 @@ typedef struct s_map
 	char	**buffer;
 	char	**map;
 	char	**DIRC;//6//iniciar el ** en 6
+	int				f;
+	int				c;
 }			t_map;
 
 //Error
@@ -98,7 +100,6 @@ int		check_walls(t_map *map);
 
 //Launch_MLX
 int		init_mlx(t_game *lch);
-
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 
 //--------------------------------------
@@ -136,5 +137,8 @@ void	handler_flood_fill(t_game *game);
 void	read_fd(t_game *game, int fd, char *av);
 void	print(char **str);
 int		parser(t_game *game, char **av);
+
+
+int		get_int_color(int r, int g, int b);
 
 #endif

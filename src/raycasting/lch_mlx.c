@@ -16,7 +16,7 @@ void	print_screen(t_game *lch)
 
 	while(x++ < W)
 	{
-		my_mlx_pixel_put(lch->img, x, y, 0x000000);//cambiar por el color del mapa
+		my_mlx_pixel_put(lch->img, x, y, lch->map->f);//cambiar por el color del mapa
 		if (x == W)
 		{
 			y++;
@@ -28,7 +28,7 @@ void	print_screen(t_game *lch)
 	x = 0;
 	while(x++ < W)
 	{
-		my_mlx_pixel_put(lch->img, x, y, 0x000000);//cambiar por el color del mapa
+		my_mlx_pixel_put(lch->img, x, y, lch->map->c);//cambiar por el color del mapa
 		if (x == W)
 		{
 			y++;
@@ -48,6 +48,8 @@ int	init_mlx(t_game *lch)
 	lch->mlx = mlx_init();
 	lch->mlx_win = mlx_new_window(lch->mlx, W + 1, H + 1, "");
 
+	lch->map->f = get_int_color(lch->color->r, lch->color->g, lch->color->b);
+	lch->map->c = get_int_color(lch->color->r, lch->color->g, lch->color->b);
 	//----
 	t_img	*data;
 	t_img	*data2;
