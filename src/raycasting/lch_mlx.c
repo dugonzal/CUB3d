@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lch_mlx.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:12:04 by masla-la          #+#    #+#             */
-/*   Updated: 2023/07/19 13:22:05 by masla-la         ###   ########.fr       */
+/*   Updated: 2023/07/19 17:20:00 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,14 @@ void	open_img(t_game	*lch)
 
 	i = 0;
 	z = 64;
-	while (i < 4)
+	while (i < 4)// cambio la posicion de \ en el array
 	{
-		lch->img[i].img_w = mlx_xpm_file_to_image(\
-		lch->mlx, lch->img[i].path, &z, &z);
+		lch->img[i].img_w = mlx_xpm_file_to_image(lch->mlx, \
+		lch->img[i].path, &z, &z);
 		if (!lch->img[i].img_w)
 			err("XPM =>[textures] not found");//cambiar a limpiar
-		lch->img[i].addr = mlx_get_data_addr(\
-		lch->img[i].img_w, &lch->img[i].bits_per_pixel, \
-		&lch->img[i].line_length, &lch->img[i].endian);
+		lch->img[i].addr = mlx_get_data_addr(lch->img[i].img_w, \
+		&lch->img[i].bits_per_pixel, &lch->img[i].line_length, &lch->img[i].endian);
 		i++;
 	}
 }
