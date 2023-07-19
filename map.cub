@@ -1,14 +1,14 @@
-NO ./ruta_a_la_textura_norte
-SO ./ruta_a_la_textura_sur
-WE ./ruta_a_la_textura_oeste
-EA ./ruta_a_la_textura_este
 
-F 220,100,0
-C 225,30,0
+NO ./img/123.xpm
+SO ./img/bookshelf.xpm
+EA ./img/wood3.xpm
+WE ./img/bricksx64.xpm
 
+F 255,0,0
+C 0,255,0
         1111111111111111111111111
         1000000000110000000000001
-        10110000011100000S0000001
+        10110000011100000N0000001
         1001000000000000000000001
 111111111011000001110000000000001
 100000000011000001111111101111111

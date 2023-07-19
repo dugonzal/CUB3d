@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_text.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/19 13:12:01 by masla-la          #+#    #+#             */
+/*   Updated: 2023/07/19 13:12:02 by masla-la         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/cub3d.h"
 
 t_img	*select_text(t_game *lch, int side)
@@ -8,16 +20,16 @@ t_img	*select_text(t_game *lch, int side)
 	if (side)
 	{
 		if (ry->ray_dir_y < 0)
-			return (lch->data);
+			return (&lch->img[3]);
 		else
-			return (lch->data2);
+			return (&lch->img[2]);
 	}
 	else
 	{
 		if (ry->ray_dir_x < 0)
-			return (lch->data3);
+			return (&lch->img[0]);
 		else
-			return (lch->data4);
+			return (&lch->img[1]);
 	}
 }
 
@@ -62,6 +74,6 @@ void	print_ray(t_game *lch, int draw[2], int x, int side)
 		ry->tex_pos += ry->step;
 		text = select_text(lch, side);
 		color = get_text_color(tex_y, ry->tex_pos, text->addr);
-		my_mlx_pixel_put(lch->img, x, y, color);
+		my_mlx_pixel_put(&lch->img[4], x, y, color);
 	}
 }

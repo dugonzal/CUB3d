@@ -26,7 +26,7 @@ int	keyhook(t_game *lch)
 int	key_p(int key, t_game *lch)
 {
 	if (key == 53)
-		exit(1);
+		exit(1);//
 	if (key == 13)
 		lch->x = 1;
 	else if (key == 1)
@@ -56,5 +56,13 @@ int	key_rl(int key, t_game *lch)
 		lch->x = 0;
 	else if (key == 124)
 		lch->x = 0;
+	return (0);
+}
+
+int	close_window(int key, t_game *lch)
+{
+	(void)lch;
+	if (key)
+		printf("%d\n", key);//limpiar codigo, cerrar ventana
 	return (0);
 }

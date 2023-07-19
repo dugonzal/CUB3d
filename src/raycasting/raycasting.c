@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/19 13:11:56 by masla-la          #+#    #+#             */
+/*   Updated: 2023/07/19 13:11:59 by masla-la         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/cub3d.h"
 
 void	wall_dist(t_game *lch, t_ry *ry, int side, int x)
@@ -72,7 +84,7 @@ void	set_step(t_ry *ry)
 	}
 }
 
-void	init_ry(t_ry *ry)//
+void	init_ry(t_ry *ry)
 {
 	ry->dir_x = -1;
 	ry->dir_y = 0;
@@ -82,21 +94,18 @@ void	init_ry(t_ry *ry)//
 		rot_camera(ry, -(0 * (M_PI / 180)));
 	else if (ry->dir == 'W')
 		rot_camera(ry, -(90 * (M_PI / 180)));
-	else if(ry->dir == 'E')
+	else if (ry->dir == 'E')
 		rot_camera(ry, (90 * (M_PI / 180)));
 	else if (ry->dir == 'S')
 		rot_camera(ry, -(180 * (M_PI / 180)));
-	//rot_camera(ry, -(0 * (M_PI / 180)));
 }
 
 int	raycasting(t_game *lch)
 {
-	t_map	*map;
 	t_ry	*ry;
 	int		x;
 	int		side;
 
-	map = lch->map;
 	ry = lch->ry;
 	x = 0;
 	while (x++ < W)
@@ -113,7 +122,7 @@ int	raycasting(t_game *lch)
 		if (1 / ry->delta_dist_y == 0)
 			ry->delta_dist_y = 1e30;
 		set_step(ry);
-		side = hit_wall(ry, map);
+		side = hit_wall(ry, lch->map);
 		wall_dist(lch, ry, side, x);
 	}
 	return (0);
