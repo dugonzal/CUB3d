@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/19 17:14:29 by masla-la          #+#    #+#             */
+/*   Updated: 2023/07/19 17:16:15 by masla-la         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -24,19 +36,17 @@ typedef struct s_game
 {
 	int				x;
 	int				y;
-
 	void			*mlx;
 	void			*mlx_win;
 	int				width;
 	int				heigth;
-
 	struct s_img	*img;
 	struct s_color	*color;
 	struct s_map	*map;
 	struct s_ry		*ry;
 }			t_game;
 
-typedef struct	s_ry
+typedef struct s_ry
 {
 	char	dir;
 	double	pos_x;
@@ -62,7 +72,6 @@ typedef struct	s_ry
 	double	tex_pos;
 }			t_ry;
 
-
 typedef struct s_img
 {
 	char	*path;
@@ -74,14 +83,14 @@ typedef struct s_img
 	int		endian;
 }			t_img;
 
-
-typedef struct s_color {
-  char  **rgb;
-  char *buffer;
-  int	r;
-  int	g;
-  int	b;
-} t_color;
+typedef struct s_color
+{
+	char	**rgb;
+	char	*buffer;
+	int		r;
+	int		g;
+	int		b;
+}		t_color;
 
 typedef struct s_map
 {
@@ -113,16 +122,15 @@ int		text_side(t_ry *ry, int side);
 void	print_ray(t_game *lch, int draw[2], int x, int side);
 
 //KeyHooks
-int	key_p(int key, t_game *lch);
-int	key_rl(int key, t_game *lch);
-int	keyhook(t_game *lch);
-int	close_window(int key, t_game *lch);
+int		key_p(int key, t_game *lch);
+int		key_rl(int key, t_game *lch);
+int		keyhook(t_game *lch);
+int		close_window(int key, t_game *lch);
 
 //Camera FT
 void	rot_camera(t_ry *ry, double rot_speed);
 void	move_camera_h(t_game *lch, double move_speed, int i);
 void	move_camera_v(t_game *lch, double move_speed, int i);
-
 
 //
 void	*free_array(char **str);
@@ -130,7 +138,5 @@ void	handler_flood_fill(t_game *game);
 void	read_fd(t_game *game, int fd, char *av);
 void	print(char **str);
 int		parser(t_game *game, char **av);
-
-
 
 #endif
