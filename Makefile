@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
+#    By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/15 12:31:04 by Dugonzal          #+#    #+#              #
-#    Updated: 2023/07/13 14:02:37 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/07/19 11:46:35 by masla-la         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,12 +20,16 @@ OBJ_DIR		:= obj/
 MLX_CF		:= -framework OpenGL -framework AppKit
 MLX_PATH 	:= libs/minilibx_macos/
 val 		:=  valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes
-SANI 		:= -fsanitize=address
+CFLAGS		+= -fsanitize=address
 
 PARSER_DIR		:= parser/
-PARSER_FILES	:= read_fd parser flood_fill
+PARSER_FILES	:= read_fd parser
+
+RAYCAST_DIR		:= raycasting/
+RAYCAST_FILES	:= camera key_hook lch_mlx print_text raycasting
 
 SRC_FILES	+= $(addprefix $(PARSER_DIR),$(PARSER_FILES))
+SRC_FILES	+= $(addprefix $(RAYCAST_DIR),$(RAYCAST_FILES))
 SRC_FILES	+= cub3d utils 
 
 SRC			:= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
@@ -49,8 +53,9 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	mkdir -p libs/bin
 	mkdir -p $(OBJ_DIR)
 	mkdir -p $(OBJ_DIR)$(PARSER_DIR)
+	mkdir -p $(OBJ_DIR)$(RAYCAST_DIR)
 	# si no tienes cli-git instalado, instala git y ejecuta el comando git clone https://github.com/dugonzal/libft
-	if [[ ! -d "libs/libft" ]]; then gh repo clone libft  && mv libft libs/; fi
+	if [[ ! -d "libs/libft" ]]; then git clone https://github.com/dugonzal/libft  && mv libft libs/; fi
 	make -C libs/libft && cp -r libs/libft/libft.a libs/bin/
 	echo "\033[32m[$<]\033[0m $(NAME) created \033[0m"
 	$(C) $(CFLAGS) -c $< -o $@
