@@ -6,13 +6,13 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:50:57 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/20 14:04:07 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/20 14:44:16 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-int len_fd(int fd, t_game *game)
+static int len_fd(int fd, t_game *game)
 {
   int	i;
   char	*line;

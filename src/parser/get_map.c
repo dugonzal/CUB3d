@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 13:19:35 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/20 14:41:14 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/20 14:43:42 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void len_x(t_game *game, int j)
 		game->map->len_x = ft_strlen(game->map->map[j]);
 }
 
-int get(t_game *game, char *line, int iter)
+static int get(t_game *game, char *line, int iter)
 {
 	if (search("NESW", *line) && iter == 5)
 		return (1);

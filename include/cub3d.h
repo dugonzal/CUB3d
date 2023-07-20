@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 22:01:52 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/20 14:40:35 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/20 14:43:50 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ typedef struct s_map
 
 //Read_map
 
-int 	get(t_game *game, char *line, int iter);
 int		get_map(t_game *game);
 void	free_error(t_game *game, char *str);
 void	check_rgb(t_game *game, int i, int number);
