@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 14:35:16 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/20 14:40:20 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/20 14:45:47 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,10 @@ bool get_rgb_tmp(t_game *game, int i, char *line)
 	game->color[i].buffer = ft_strtrim(&line[1], " \t\r\v\f\n", 0);
 	game->color[i].rgb = ft_split(game->color[i].buffer, ',', 0);
 	free(game->color[i].buffer);
+	game->color[i].buffer = NULL;
 	if (get_rgb(game, i))
-	  return (true);
+		return (true);
 	free_array(game->color[i].rgb);
+	game->color[i].rgb = NULL;
 	return (false);
 }

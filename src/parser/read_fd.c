@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:50:57 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/20 14:44:16 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/20 14:44:59 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ static int len_fd(int fd, t_game *game)
 
   line = get_next_line(fd);
   if (!line)
-  {
  	free_error(game, "Invalid file: No line");
-  }
   i = 0;
   while (line)
   {
