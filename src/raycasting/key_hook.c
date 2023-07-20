@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 12:44:23 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/20 12:44:33 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/20 13:47:00 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ int	key_rl(int key, t_game *lch)
 
 int	close_window(int key, t_game *lch)
 {
-	(void)lch;
 	if (key)
-		printf("%d\n", key);//limpiar codigo, cerrar ventana
+		free_error(lch, "");
 	return (0);
 }

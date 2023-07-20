@@ -1,13 +1,13 @@
-NO ./img/0.xpm
+NO img/0.xpm
 
 
-SO ./img/1.xpm
+SO img/1.xpm
 
 
-EA ./img/2.xpm 
+EA img/0.xpm 
 
 
-WE ./img/123.xpm
+WE img/0.xpm
 
 
 

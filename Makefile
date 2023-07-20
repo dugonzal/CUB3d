@@ -6,7 +6,7 @@
 #    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/15 12:31:04 by Dugonzal          #+#    #+#              #
-#    Updated: 2023/07/20 12:47:21 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/07/20 14:35:36 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,10 +20,10 @@ OBJ_DIR		:= obj/
 MLX_CF		:= -framework OpenGL -framework AppKit
 MLX_PATH 	:= libs/minilibx_macos/
 val 		:=  valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes
-CFLAGS		+= -fsanitize=address
+#CFLAGS		+= -fsanitize=address
 
 PARSER_DIR		:= parser/
-PARSER_FILES	:= read_fd parser
+PARSER_FILES	:= read_fd parser get_map parser_utils
 
 RAYCAST_DIR		:= raycasting/
 RAYCAST_FILES	:= camera key_hook lch_mlx print_text raycasting

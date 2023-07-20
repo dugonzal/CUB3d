@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:28:50 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/20 11:38:30 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/20 14:29:43 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,27 @@ void	print(char **str)
 void	*free_array(char **str)
 {
 	int	i;
-
+	
+	if (!str)
+		return (NULL);
 	i = 0;
-	while (str[i])
+	while (*str && str[i])
 	{
-		if (str[i])
-			free(str[i]);
+		free(str[i]);
 		i++;
 	}
 	free(str);
 	return (NULL);
+}
+
+void free_error(t_game *game, char *str)
+{
+	free_array(game->map->map);
+	free(game->map);
+	free(game->ry);
+	free(game->img);
+	free(game->color);
+	err(str);
 }
 
 int	get_int_color(int r, int g, int b)

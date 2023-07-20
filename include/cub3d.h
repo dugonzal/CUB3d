@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 22:01:52 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/20 12:54:31 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/20 14:40:35 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,13 @@ typedef struct s_map
 
 //Read_map
 
-void free_error(t_game *game, char *str);
+int 	get(t_game *game, char *line, int iter);
+int		get_map(t_game *game);
+void	free_error(t_game *game, char *str);
+void	check_rgb(t_game *game, int i, int number);
+int		get_rgb(t_game *game, int i);
+int		check_commas(t_game *game, int i);
+bool	get_rgb_tmp(t_game *game, int i, char *line);
 //Launch_MLX 
 int		init_mlx(t_game *lch);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);

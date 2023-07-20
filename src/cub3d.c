@@ -6,13 +6,12 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:11:47 by masla-la          #+#    #+#             */
-/*   Updated: 2023/07/20 12:58:55 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/20 13:18:52 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-// tener en cuenta las reserbas de memoria y liberarlas
 void	init_struct(t_game *lch)
 {
 	lch->color = (t_color *)ft_calloc(sizeof(t_color), 2);
@@ -29,7 +28,6 @@ void	init_struct(t_game *lch)
 	}
 }
 
-//falta comprobar q fd exista o algo
 int	main(int ac, char **av)
 {
 	t_game	game;
