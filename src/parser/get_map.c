@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 13:19:35 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/20 14:54:45 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/20 21:57:54 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	len_map(t_game *game)
 {
 	int	i;
-	int j;
+	int	j;
 
 	j = 0;
 	i = 0;
@@ -23,21 +23,21 @@ static int	len_map(t_game *game)
 	{
 		if (search(game->map->buffer[i], '1') \
 		&& !search("NESWFC", game->map->buffer[i][0]))
-		  j++;
+			j++;
 		else if (j && !search(game->map->buffer[i], '1'))
-		  free_error(game, "Invalid file: No end");
+			free_error(game, "Invalid file: No end");
 		i++;
 	}
 	return (j);
 }
 
-static void len_x(t_game *game, int j)
+static void	len_x(t_game *game, int j)
 {
 	if ((int)ft_strlen(game->map->map[j]) > game->map->len_x)
 		game->map->len_x = ft_strlen(game->map->map[j]);
 }
 
-static int get(t_game *game, char *line, int iter)
+static int	get(t_game *game, char *line, int iter)
 {
 	if (search("NESW", *line) && iter == 5)
 		return (1);
@@ -60,36 +60,36 @@ static int get(t_game *game, char *line, int iter)
 			return (1);
 	}
 	else
-	    return (1);
+		return (1);
 	return (0);
 }
 
 // j[0] = j, j[1] = i  j[2] = iter
-int get_map(t_game *game)
+int	get_map(t_game *game)
 {
-  int	j[3];
+	int	j[3]; 
 
-  j[0] = 0;
-  j[1] = 0;
-  j[2] = -1;
-  game->map->len_y = len_map(game);
-  game->map->map = ft_calloc(sizeof(char *), game->map->len_y + 1);
-  if (!game->map->map)
-	  free_error(game, "Invalid file: calloc");
-  while (game->map->buffer[j[1]] && j[0] < game->map->len_y)
-  {
-	if (search("NESWFC",game->map->buffer[j[1]][0]))
-		if (get(game, game->map->buffer[j[1]], ++j[2]))
-		  return (1);
-	if (search(game->map->buffer[j[1]], '1') \
-	&& !search("NESWFC", game->map->buffer[j[1]][0]))
+	j[0] = 0;
+	j[1] = 0;
+	j[2] = -1;
+	game->map->len_y = len_map(game);
+	game->map->map = ft_calloc(sizeof(char *), game->map->len_y + 1);
+	if (!game->map->map)
+		free_error(game, "Invalid file: calloc");
+	while (game->map->buffer[j[1]] && j[0] < game->map->len_y)
 	{
-		game->map->map[j[0]] = ft_strdup(game->map->buffer[j[1]]);
-		len_x(game, j[0]);
-		j[0]++;
+		if (search("NESWFC", game->map->buffer[j[1]][0]))
+			if (get(game, game->map->buffer[j[1]], ++j[2]))
+				return (1);
+		if (search(game->map->buffer[j[1]], '1') \
+		&& !search("NESWFC", game->map->buffer[j[1]][0]))
+		{
+			game->map->map[j[0]] = ft_strdup(game->map->buffer[j[1]]);
+			len_x(game, j[0]);
+			j[0]++;
+		}
+		j[1]++;
 	}
-	j[1]++;
-  }
-  game->map->map[j[0]] = NULL;
-  return (0);
+	game->map->map[j[0]] = NULL;
+	return (0);
 }

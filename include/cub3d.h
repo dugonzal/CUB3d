@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 22:01:52 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/20 14:43:50 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/20 22:04:43 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_game
 	struct s_ry		*ry;
 }			t_game;
 
-typedef struct	s_ry
+typedef struct s_ry
 {
 	char	dir;
 	double	pos_x;
@@ -81,12 +81,12 @@ typedef struct s_img
 }			t_img;
 
 typedef struct s_color {
-  char  **rgb;
-  char *buffer;
-  int	r;
-  int	g;
-  int	b;
-} t_color;
+	char	**rgb;
+	char	*buffer;
+	int		r;
+	int		g;
+	int		b;
+}			t_color;
 
 typedef struct s_map
 {
@@ -124,10 +124,10 @@ int		text_side(t_ry *ry, int side);
 void	print_ray(t_game *lch, int draw[2], int x, int side);
 
 //KeyHooks
-int	key_p(int key, t_game *lch);
-int	key_rl(int key, t_game *lch);
-int	keyhook(t_game *lch);
-int	close_window(int key, t_game *lch);
+int		key_p(int key, t_game *lch);
+int		key_rl(int key, t_game *lch);
+int		keyhook(t_game *lch);
+int		close_window(int key, t_game *lch);
 
 //Camera FT
 void	rot_camera(t_ry *ry, double rot_speed);
