@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:12:04 by masla-la          #+#    #+#             */
-/*   Updated: 2023/07/20 13:35:51 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/20 22:12:14 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,14 @@ void	open_img(t_game	*lch)
 
 	i = 0;
 	z = 64;
-	while (i < 4)// cambio la posicion de \ en el array
+	while (i < 4)
 	{
 		lch->img[i].img_w = mlx_xpm_file_to_image(lch->mlx, \
 		lch->img[i].path, &z, &z);
 		if (!lch->img[i].img_w)
 			free_error(lch, "No se ha podido abrir la imagen");
-		lch->img[i].addr = mlx_get_data_addr(lch->img[i].img_w, \
-		&lch->img[i].bits_per_pixel, &lch->img[i].line_length, &lch->img[i].endian);
+		lch->img[i].addr = mlx_get_data_addr(lch->img[i].img_w, &lch->img[i]. \
+		bits_per_pixel, &lch->img[i].line_length, &lch->img[i].endian);
 		i++;
 	}
 }

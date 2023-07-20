@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:28:50 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/20 14:46:12 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/20 22:09:25 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print(char **str)
 void	*free_array(char **str)
 {
 	int	i;
-	
+
 	if (!str)
 		return (NULL);
 	i = 0;
@@ -38,7 +38,7 @@ void	*free_array(char **str)
 	return (NULL);
 }
 
-void free_error(t_game *game, char *str)
+void	free_error(t_game *game, char *str)
 {
 	free_array(game->map->map);
 	free(game->map);

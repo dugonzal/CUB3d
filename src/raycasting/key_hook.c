@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 12:44:23 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/20 13:47:00 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/20 22:09:56 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	keyhook(t_game *lch)
 int	key_p(int key, t_game *lch)
 {
 	if (key == 53)
-		exit(1);//
+		exit(1);
 	if (key == 13)
 		lch->x = 1;
 	else if (key == 1)
