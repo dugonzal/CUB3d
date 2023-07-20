@@ -6,32 +6,32 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:50:57 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/20 14:44:59 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/20 14:57:12 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-static int len_fd(int fd, t_game *game)
+static int	len_fd(int fd, t_game *game)
 {
-  int	i;
-  char	*line;
+	char	*line;
+	int		i;
 
-  line = get_next_line(fd);
-  if (!line)
- 	free_error(game, "Invalid file: No line");
-  i = 0;
-  while (line)
-  {
-	i++;
-	free(line);
 	line = get_next_line(fd);
-  }
-  close(fd);
-  return (i);
+	if (!line)
+		free_error(game, "Invalid file: No line");
+	i = 0;
+	while (line)
+	{
+		i++;
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	return (i);
 }
 
-void read_fd(t_game *game, int fd, char *av)
+void	read_fd(t_game *game, int fd, char *av)
 {
   int	i;
   char	*line;

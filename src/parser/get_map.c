@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 13:19:35 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/20 14:43:42 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/20 14:54:45 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ static int get(t_game *game, char *line, int iter)
 		game->img[iter].path = ft_strtrim(&line[2], " \t\r\v\f\n", 0);
 	else if (line[0] == 'E' && line[1] == 'A')
 		game->img[iter].path = ft_strtrim(&line[2], " \t\r\v\f\n", 0);
-	else if (line[0] == 'W' && line[1] == 'E')
+	else if (*line == 'W' && *(line + 1) == 'E')
 		game->img[iter].path = ft_strtrim(&line[2], " \t\r\v\f\n", 0);
-	else if (line[0] == 'F')
+	else if (*line == 'F')
 	{
 		if (get_rgb_tmp(game, 0, line) == true)
 			return (1);
 	}
-	else if (line[0] == 'C')
+	else if (*line == 'C')
 	{
 		if (get_rgb_tmp(game, 1, line) == true)
 			return (1);
@@ -75,7 +75,7 @@ int get_map(t_game *game)
   game->map->len_y = len_map(game);
   game->map->map = ft_calloc(sizeof(char *), game->map->len_y + 1);
   if (!game->map->map)
-	  free_error(game, "Invalid file: No map");
+	  free_error(game, "Invalid file: calloc");
   while (game->map->buffer[j[1]] && j[0] < game->map->len_y)
   {
 	if (search("NESWFC",game->map->buffer[j[1]][0]))
