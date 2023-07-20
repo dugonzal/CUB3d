@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+         #
+#    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/15 12:31:04 by Dugonzal          #+#    #+#              #
-#    Updated: 2023/07/19 11:46:35 by masla-la         ###   ########.fr        #
+#    Updated: 2023/07/20 12:47:21 by Dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

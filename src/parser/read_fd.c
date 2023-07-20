@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:50:57 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/18 14:06:52 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/20 13:00:51 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@ int len_fd(int fd, t_game *game)
   char	*line;
 
   line = get_next_line(fd);
-  (void)game;// si algo falla hay que limpiar las reservas de memoria
   if (!line)
-	  return (err_ret("Error: Invalid file: No map"));
+ 	 free_error(game, "Invalid file: No line");
   i = 0;
   while (line)
   {
@@ -36,19 +35,20 @@ void read_fd(t_game *game, int fd, char *av)
 {
   int	i;
   char	*line;
-  
-  game->map->buffer = ft_calloc(sizeof(char *), len_fd(fd, game) + 1);
-  if (!game->map->buffer)// hay que limpiar
-	return (err("Error: Invalid file: No map"));
+  int	len;
+
+  len = len_fd(fd, game);
+  if (len < 1)
+	free_error(game, "Invalid file: len < 1");
+  game->map->buffer = ft_calloc(sizeof(char *), len + 1);
+  if (!game->map->buffer)
+	free_error(game, "Invalid file: maloc error");
   fd = ft_open(av, 0);
   if (fd < 0)
-  {
-	// hay que limpiar el game->map->buffer
-	return (err("Error: Invalid file: No such file or directory"));
-  }
+	  free_error(game, "Invalid file: fd < 0");
   line = get_next_line(fd);
   if (!line)
-	return (err("Error: Invalid file: No map"));// hay que limpiar las reservas de memoria
+	free_error(game, "Invalid file: No line");
   i = 0;
   while (line)
   {
@@ -59,6 +59,5 @@ void read_fd(t_game *game, int fd, char *av)
   }
   free (line);
   close(fd);
-
 }
 

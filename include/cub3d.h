@@ -1,38 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/19 22:01:52 by Dugonzal          #+#    #+#             */
+/*   Updated: 2023/07/20 12:54:31 by Dugonzal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include <stdbool.h>//
 # include <math.h>
 # include <unistd.h>
 # include <stdio.h>
 # include <fcntl.h>
 # include "../libs/libft/include/libft.h"
 # include "../libs/minilibx_macos/mlx.h"
-
-# include <stdbool.h>//
-
 # define NO	0
 # define SO	1
 # define WE	2
 # define EA	3
 # define F	4
 # define C	5
-
-# define W 2000
-# define H 1000
+# define W 720 
+# define H 440 
 
 typedef struct s_game
 {
-	int				x;
-	int				y;
-
 	void			*mlx;
 	void			*mlx_win;
 	int				width;
 	int				heigth;
-
+	struct s_map	*map;
 	struct s_img	*img;
 	struct s_color	*color;
-	struct s_map	*map;
+	int				x;
+	int				y;
 	struct s_ry		*ry;
 }			t_game;
 
@@ -62,7 +69,6 @@ typedef struct	s_ry
 	double	tex_pos;
 }			t_ry;
 
-
 typedef struct s_img
 {
 	char	*path;
@@ -73,7 +79,6 @@ typedef struct s_img
 	int		line_length;
 	int		endian;
 }			t_img;
-
 
 typedef struct s_color {
   char  **rgb;
@@ -95,7 +100,8 @@ typedef struct s_map
 
 //Read_map
 
-//Launch_MLX
+void free_error(t_game *game, char *str);
+//Launch_MLX 
 int		init_mlx(t_game *lch);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 int		get_int_color(int r, int g, int b);
@@ -123,14 +129,12 @@ void	rot_camera(t_ry *ry, double rot_speed);
 void	move_camera_h(t_game *lch, double move_speed, int i);
 void	move_camera_v(t_game *lch, double move_speed, int i);
 
-
 //
 void	*free_array(char **str);
+void	*free_array0(char ***str);
 void	handler_flood_fill(t_game *game);
 void	read_fd(t_game *game, int fd, char *av);
 void	print(char **str);
 int		parser(t_game *game, char **av);
-
-
 
 #endif

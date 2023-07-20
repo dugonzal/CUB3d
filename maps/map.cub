@@ -1,17 +1,13 @@
+NO ./img/0.xpm
 
 
+SO ./img/1.xpm
 
 
-NO ./ruta_a_la_textura_norte
+EA ./img/2.xpm 
 
 
-SO ./ruta_a_la_textura_sur
-
-
-EA ./ruta_a_la_textura_este
-
-
-WE ./ruta_a_la_textura_oeste
+WE ./img/123.xpm
 
 
 
@@ -25,13 +21,6 @@ F 220,100,0
 
 C 225,30,0
 
-
-
-
-
-efredw
-
-dfsfdsfds
 
 
 

@@ -6,18 +6,19 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:44:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/19 17:16:52 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/20 13:02:08 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-void free_error(t_game *game)
+void free_error(t_game *game, char *str)
 {
-	free(game->img);
-	//free(game->ry);
-//	free_array(game->map->buffer);
 	free(game->map);
+	free(game->ry);
+	free(game->img);
+	free(game->color);
+	err(str);
 }
 
 // ahora mismo leemos el archivo y lo guardamos en un buffer
@@ -34,10 +35,7 @@ int	len_map(t_game *game)
 		&& !search("NESWFC", game->map->buffer[i][0]))
 		  j++;
 		else if (j && !search(game->map->buffer[i], '1'))
-		{
-		  free_error(game);
-		  return (err_ret("Invalid file: map not end file"));
-		}
+		  free_error(game, "Invalid file: No end");
 		i++;
 	}
 	return (j);
@@ -61,7 +59,6 @@ int get_rgb(t_game *game, int i)
   game->color[i].g = ft_atoi(game->color[i].rgb[1]);
   check_rgb(game, i, 2);
   game->color[i].b = ft_atoi(game->color[i].rgb[2]);
-  printf ("color: %d %d %d\n", game->color[i].r, game->color[i].g, game->color[i].b);
   return (0);
 }
 
@@ -88,7 +85,6 @@ bool get_rgb_tmp(t_game *game, int i, char *line)
 	if (get_rgb(game, i))
 	  return (true);
 	free_array(game->color[i].rgb);
-	printf("color: %d %d %d\n", game->color[i].r, game->color[i].g, game->color[i].b);
 	return (false);
 }
 
@@ -96,20 +92,21 @@ int _get(t_game *game, char *line, int iter)
 {
 	if (search("NESW", *line) && iter == 5)
 		return (1);
-  if (line[0] == 'N' && line[1] == 'O')
+  if (line[0] == 'N' && line[1] == 'O') {
 	game->img[iter].path = ft_strtrim(&line[2], " \t\r\v\f\n", 0);
+  }
   else if (line[0] == 'S' && line[1] == 'O')
 	game->img[iter].path = ft_strtrim(&line[2], " \t\r\v\f\n", 0);
   else if (line[0] == 'E' && line[1] == 'A')
 	game->img[iter].path = ft_strtrim(&line[2], " \t\r\v\f\n", 0);
   else if (line[0] == 'W' && line[1] == 'E')
 	game->img[iter].path = ft_strtrim(&line[2], " \t\r\v\f\n", 0);
-  else if (line[0] == 'F' && iter == 4)
+  else if (line[0] == 'F')
   {
 	if (get_rgb_tmp(game, 0, line) == true)
 	  return (1);
   }
-  else if (line[0] == 'C' && iter == 5)
+  else if (line[0] == 'C')
   {
 	if (get_rgb_tmp(game, 1, line) == true)
 	  return (1);
@@ -130,7 +127,7 @@ int get_map(t_game *game)
   iter = -1;
   game->map->len_y = len_map(game);
   if (game->map->len_y < 3)// si el mapa es menor que 3 es que no hay mapa o es invalido hay que limpiar
-	  return (err_ret("Invalid file: map not found"));
+	  return (err_ret("Invalid file: len map < 3"));
   game->map->map = ft_calloc(sizeof(char *), game->map->len_y + 1);
   if (!game->map->map)
 	  return (1);
@@ -156,10 +153,8 @@ int get_map(t_game *game)
   return (0);
 }
 
-/*
-0. Excepto por el contenido del mapa, que debe estar siempre al final,
-1. cada tipo de elemento puede estar establecido en cualquier orden en el archivo.
-*/
+/*0. Excepto por el contenido del mapa, que debe estar siempre al final,
+1. cada tipo de elemento puede estar establecido en cualquier orden en el archivo.:*/
 int	check_map(t_game *game)
 {
   int x;
@@ -203,14 +198,10 @@ int parser(t_game *game, char **av)
   int		fd;
 
   fd = ft_open(av[1], 0);
-  if (fd < 0)// hay que limpiar todo lo que se haya reservado si hay error
-	return (err_ret("Invalid file: No such file or directory"));
+  if (fd < 0)
+	free_error(game, "Invalid file: fd < 0 No such file or directory");
   read_fd(game, fd, av[1]);
   if (get_map(game) || check_map(game))
-  {
-	free_error(game);
-	return (err_ret("Invalid file: Map"));
-  }
-  print (game->map->map);
+	  free_error(game, "Invalid file:  get map and check map not found");
   return  (0);
 }
