@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 13:19:35 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/20 21:57:54 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/21 10:48:02 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	get(t_game *game, char *line, int iter)
 // j[0] = j, j[1] = i  j[2] = iter
 int	get_map(t_game *game)
 {
-	int	j[3]; 
+	int	j[3];
 
 	j[0] = 0;
 	j[1] = 0;

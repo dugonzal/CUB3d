@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 22:01:52 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/20 22:04:43 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/21 11:01:21 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # define EA	3
 # define F	4
 # define C	5
-# define W 720 
-# define H 440 
+# define W 720
+# define H 440
 
 typedef struct s_game
 {
@@ -106,7 +106,7 @@ void	check_rgb(t_game *game, int i, int number);
 int		get_rgb(t_game *game, int i);
 int		check_commas(t_game *game, int i);
 bool	get_rgb_tmp(t_game *game, int i, char *line);
-//Launch_MLX 
+//Launch_MLX
 int		init_mlx(t_game *lch);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 int		get_int_color(int r, int g, int b);

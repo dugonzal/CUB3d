@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:28:50 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/20 22:09:25 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/21 10:51:28 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	*free_array(char **str)
 
 void	free_error(t_game *game, char *str)
 {
-	free_array(game->map->map);
 	free(game->map);
 	free(game->ry);
 	free(game->img);
