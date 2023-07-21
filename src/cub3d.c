@@ -6,13 +6,12 @@
 /*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:11:47 by masla-la          #+#    #+#             */
-/*   Updated: 2023/07/19 13:26:24 by masla-la         ###   ########.fr       */
+/*   Updated: 2023/07/21 11:32:28 by masla-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-// tener en cuenta las reserbas de memoria y liberarlas
 void	init_struct(t_game *lch)
 {
 	lch->color = (t_color *)ft_calloc(sizeof(t_color), 2);
@@ -25,15 +24,17 @@ void	init_struct(t_game *lch)
 		free(lch->ry);
 		free(lch->img);
 		free(lch->color);
-		return (err("Error: malloc"));
+		return (err("malloc"));
 	}
 }
 
-//falta comprobar q fd exista o algo
 int	main(int ac, char **av)
 {
 	t_game	game;
 
+	exit(0);
+	ac = 2;
+	av[1] = "map.cub";
 	if (ac != 2)
 		return (err_ret("Error: Invalid arguments"));
 	if (ft_strcmp(av[1] + ft_strlen(av[1]) - 4, ".cub"))
@@ -41,6 +42,9 @@ int	main(int ac, char **av)
 	ft_bzero(&game, sizeof(t_game));
 	init_struct(&game);
 	parser (&game, av);
+	free_all(&game);
+	system("leaks cub3d");
+	return(0);
 	init_mlx(&game);
 	return (0);
 }

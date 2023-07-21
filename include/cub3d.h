@@ -6,7 +6,7 @@
 /*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 17:14:29 by masla-la          #+#    #+#             */
-/*   Updated: 2023/07/19 17:16:15 by masla-la         ###   ########.fr       */
+/*   Updated: 2023/07/21 10:50:07 by masla-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ typedef struct s_ry
 typedef struct s_img
 {
 	char	*path;
-	char	*img;
 	void	*img_w;
 	char	*addr;
 	int		bits_per_pixel;
@@ -103,6 +102,10 @@ typedef struct s_map
 }			t_map;
 
 //Read_map
+void	read_fd(t_game *game, int fd, char *av);
+void	print(char **str);
+int		parser(t_game *game, char **av);
+int		get_map(t_game *game);
 
 //Launch_MLX
 int		init_mlx(t_game *lch);
@@ -134,9 +137,11 @@ void	move_camera_v(t_game *lch, double move_speed, int i);
 
 //
 void	*free_array(char **str);
-void	handler_flood_fill(t_game *game);
-void	read_fd(t_game *game, int fd, char *av);
-void	print(char **str);
-int		parser(t_game *game, char **av);
+void	free_error(t_game *game, char *str);
+
+bool	get_rgb_tmp(t_game *game, int i, char *line);
+int	check_commas(t_game *game, int i);
+
+void	free_all(t_game *game);
 
 #endif

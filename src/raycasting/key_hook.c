@@ -6,7 +6,7 @@
 /*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 17:17:09 by masla-la          #+#    #+#             */
-/*   Updated: 2023/07/19 17:17:10 by masla-la         ###   ########.fr       */
+/*   Updated: 2023/07/21 10:38:27 by masla-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	keyhook(t_game *lch)
 int	key_p(int key, t_game *lch)
 {
 	if (key == 53)
+		mlx_destroy_image(lch->mlx, lch->mlx_win);
 		exit(1);//
 	if (key == 13)
 		lch->x = 1;
