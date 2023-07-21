@@ -6,7 +6,7 @@
 /*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:11:47 by masla-la          #+#    #+#             */
-/*   Updated: 2023/07/21 11:32:28 by masla-la         ###   ########.fr       */
+/*   Updated: 2023/07/21 13:24:58 by masla-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,21 @@ void	init_struct(t_game *lch)
 		return (err("malloc"));
 	}
 }
-
+void	ft_default(t_game *game)
+{
+	if (!game->img[0].path)
+		game->img[0].path = ft_strdup("img/wood3.xpm");
+	if (!game->img[1].path)
+		game->img[1].path = ft_strdup("img/123.xpm");
+	if (!game->img[2].path)
+		game->img[2].path = ft_strdup("img/123.xpm");
+	if (!game->img[3].path)
+		game->img[3].path = ft_strdup("img/123.xpm");
+}
 int	main(int ac, char **av)
 {
 	t_game	game;
 
-	exit(0);
-	ac = 2;
-	av[1] = "map.cub";
 	if (ac != 2)
 		return (err_ret("Error: Invalid arguments"));
 	if (ft_strcmp(av[1] + ft_strlen(av[1]) - 4, ".cub"))
@@ -44,7 +51,12 @@ int	main(int ac, char **av)
 	parser (&game, av);
 	free_all(&game);
 	system("leaks cub3d");
-	return(0);
-	init_mlx(&game);
+	return 0;
+	if (game.map->map)
+	{
+
+		ft_default(&game);
+		init_mlx(&game);
+	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:28:50 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/21 11:24:50 by masla-la         ###   ########.fr       */
+/*   Updated: 2023/07/21 13:12:16 by masla-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	*free_array(char **str)
 	i = 0;
 	while (str[i])
 	{
-		printf("123\n");
 		free(str[i]);
 		str[i] = NULL;
 		i++;
@@ -45,7 +44,6 @@ void	free_all(t_game *game)
 
 	i = 4;
 	free_array(game->map->map);
-	printf("------------------------------\n");
 	free_array(game->map->buffer);
 	free(game->map);
 	free(game->ry);
@@ -55,6 +53,7 @@ void	free_all(t_game *game)
 		free(game->img[i].path);
 		//free(game->img[i].img_w);
 		//free(game->img[i].addr);
+		//mlx_destroy_image(game->mlx, game->img[i].img_w);
 		i++;
 	}
 	free(game->img);
@@ -63,12 +62,12 @@ void	free_all(t_game *game)
 void	free_error(t_game *game, char *str)
 {
 	(void)str;
-	//free_array(game->map->map);
+	free_array(game->map->map);
 	free(game->map);
 	free(game->ry);
 	free(game->img);
 	free(game->color);
-	//err(str);
+	err(str);
 }
 
 int	get_int_color(int r, int g, int b)

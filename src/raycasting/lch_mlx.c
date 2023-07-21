@@ -6,7 +6,7 @@
 /*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:12:04 by masla-la          #+#    #+#             */
-/*   Updated: 2023/07/21 11:06:00 by masla-la         ###   ########.fr       */
+/*   Updated: 2023/07/21 13:05:28 by masla-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,3 +98,6 @@ int	init_mlx(t_game *lch)
 	mlx_loop(lch->mlx);
 	return (0);
 }
+
+//cerrar con la x roja
+
