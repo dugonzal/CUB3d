@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:11:47 by masla-la          #+#    #+#             */
-/*   Updated: 2023/07/21 13:24:58 by masla-la         ###   ########.fr       */
+/*   Updated: 2023/07/23 15:48:13 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,6 @@ int	main(int ac, char **av)
 	ft_bzero(&game, sizeof(t_game));
 	init_struct(&game);
 	parser (&game, av);
-	free_all(&game);
-	system("leaks cub3d");
-	return 0;
 	if (game.map->map)
 	{
 
