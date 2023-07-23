@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 13:19:35 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/23 12:39:30 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/23 13:05:54 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ static int	len_map(t_game *game)
 		&& !search("NESWFC", game->map->buffer[i][0]))
 			j++;
 		else if (j && !search(game->map->buffer[i], '1'))
+		{
+			free_array(game->map->buffer); // si libero el buuffer da errores fsanitize si no no
 			free_error(game, "Invalid file: No end");
+		}
 		i++;
 	}
 	return (j);

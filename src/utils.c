@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:28:50 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/21 10:51:28 by dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/23 13:03:08 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	print(char **str)
 {
 	int	i;
 
-	i = -1;
-	while (str[++i])
-		ft_printf("%s", str[i]);
+	i = 0;
+	while (str[i] != 0)
+		ft_printf("%s", str[i++]);
 }
 
 void	*free_array(char **str)
