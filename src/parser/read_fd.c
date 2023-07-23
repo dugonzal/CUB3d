@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:50:57 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/20 21:53:59 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/23 12:48:32 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static int	len_fd(int fd, t_game *game)
 		line = get_next_line(fd);
 	}
 	close(fd);
+	free(line);
 	return (i);
 }
 
@@ -45,13 +46,12 @@ void	read_fd(t_game *game, int fd, char *av)
 	if (fd < 0)
 		free_error(game, "Invalid file: fd < 0");
 	line = get_next_line(fd);
-	i = 0;
-	while (line)
+	i = -1;
+	while (line && ++i < len)
 	{
 		game->map->buffer[i] = ft_strdup(line);
 		free(line);
 		line = get_next_line(fd);
-		i++;
 	}
 	free (line);
 	close(fd);
