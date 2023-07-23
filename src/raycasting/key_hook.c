@@ -3,17 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/20 12:44:23 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/20 22:09:56 by Dugonzal         ###   ########.fr       */
+/*   Created: 2023/07/19 17:17:09 by masla-la          #+#    #+#             */
+/*   Updated: 2023/07/21 13:09:25 by masla-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+#include "../../libs/minilibx_macos/mlx.h"
 
+//126 arriba, 123 der, 124, iz, 125 abajo// 0 a, 1 s, 2 d, 12 w
 int	keyhook(t_game *lch)
 {
+	if (!lch->mlx_win)
+		return (0);
 	if (lch->x == 1)
 		move_camera_v(lch, 0.33, 1);
 	else if (lch->x == 2)
@@ -37,7 +41,11 @@ int	keyhook(t_game *lch)
 int	key_p(int key, t_game *lch)
 {
 	if (key == 53)
-		exit(1);
+	{
+		free_all(lch);
+		mlx_destroy_window(lch->mlx, lch->mlx_win);
+		exit(0);
+	}
 	if (key == 13)
 		lch->x = 1;
 	else if (key == 1)
@@ -72,7 +80,8 @@ int	key_rl(int key, t_game *lch)
 
 int	close_window(int key, t_game *lch)
 {
+	(void)lch;
 	if (key)
-		free_error(lch, "");
+		exit(1);
 	return (0);
 }

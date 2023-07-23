@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:11:47 by masla-la          #+#    #+#             */
-/*   Updated: 2023/07/23 12:38:04 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/23 15:45:41 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,17 @@ void	init_struct(t_game *lch)
 		return (err("malloc"));
 	}
 }
-
 void	ft_default(t_game *game)
 {
 	if (!game->img[0].path)
 		game->img[0].path = ft_strdup("img/wood3.xpm");
 	if (!game->img[1].path)
-		game->img[1].path = ft_strdup("img/0.xpm");
+		game->img[1].path = ft_strdup("img/123.xpm");
 	if (!game->img[2].path)
-		game->img[2].path = ft_strdup("img/1.xpm");
+		game->img[2].path = ft_strdup("img/123.xpm");
 	if (!game->img[3].path)
-		game->img[3].path = ft_strdup("img/2.xpm");
+		game->img[3].path = ft_strdup("img/123.xpm");
 }
-
 int	main(int ac, char **av)
 {
 	t_game	game;

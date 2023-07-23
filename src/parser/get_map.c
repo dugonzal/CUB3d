@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 13:19:35 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/23 12:39:30 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/20 21:57:54 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	get(t_game *game, char *line, int iter)
 // j[0] = j, j[1] = i  j[2] = iter
 int	get_map(t_game *game)
 {
-	int	j[3];
+	int	j[3]; 
 
 	j[0] = 0;
 	j[1] = 0;

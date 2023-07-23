@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:28:50 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/21 10:51:28 by dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/21 13:12:16 by masla-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	*free_array(char **str)
 	if (!str)
 		return (NULL);
 	i = 0;
-	while (*str && str[i])
+	while (str[i])
 	{
 		free(str[i]);
 		str[i] = NULL;
@@ -38,8 +38,31 @@ void	*free_array(char **str)
 	return (NULL);
 }
 
+void	free_all(t_game *game)
+{
+	int	i;
+
+	i = 4;
+	free_array(game->map->map);
+	free_array(game->map->buffer);
+	free(game->map);
+	free(game->ry);
+	free(game->color);
+	while (i < 5)
+	{
+		free(game->img[i].path);
+		//free(game->img[i].img_w);
+		//free(game->img[i].addr);
+		//mlx_destroy_image(game->mlx, game->img[i].img_w);
+		i++;
+	}
+	free(game->img);
+}
+
 void	free_error(t_game *game, char *str)
 {
+	(void)str;
+	free_array(game->map->map);
 	free(game->map);
 	free(game->ry);
 	free(game->img);

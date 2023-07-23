@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:44:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/23 12:42:50 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/21 13:23:19 by masla-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,6 @@ int	parser(t_game *game, char **av)
 		free_error(game, NULL);
 	read_fd(game, fd, av[1]);
 	if (get_map(game) || check_map(game))
-	{
-		free_array(game->map->buffer);
-		free_array(game->map->map);
-		free_error(game, "Mapa invalido\n");
-	}
+		free_error(game, "Error\nMapa invalido\n");
 	return (0);
 }
