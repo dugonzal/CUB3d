@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 17:14:29 by masla-la          #+#    #+#             */
-/*   Updated: 2023/07/24 11:55:01 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/24 12:31:35 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void	move_camera_h(t_game *lch, double move_speed, int i);
 void	move_camera_v(t_game *lch, double move_speed, int i);
 
 //
-void	*free_array(char **str);
+void	*free_array(char **str, int size);
 void	free_error(t_game *game, char *str);
 
 bool	get_rgb_tmp(t_game *game, int i, char *line);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:28:50 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/21 13:12:16 by masla-la         ###   ########.fr       */
+/*   Updated: 2023/07/24 12:32:22 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,15 @@ void	print(char **str)
 		ft_printf("%s", str[i]);
 }
 
-void	*free_array(char **str)
+void	*free_array(char **str, int size)
 {
 	int	i;
 
-	if (!str)
-		return (NULL);
-	i = 0;
-	while (str[i])
+	i = -1;
+	while (++i < size)
 	{
 		free(str[i]);
 		str[i] = NULL;
-		i++;
 	}
 	free(str);
 	return (NULL);
@@ -43,8 +40,8 @@ void	free_all(t_game *game)
 	int	i;
 
 	i = 4;
-	free_array(game->map->map);
-	free_array(game->map->buffer);
+	free_array(game->map->map, arr_size(game->map->map));
+	free_array(game->map->buffer, arr_size(game->map->buffer));
 	free(game->map);
 	free(game->ry);
 	free(game->color);
@@ -62,7 +59,7 @@ void	free_all(t_game *game)
 void	free_error(t_game *game, char *str)
 {
 	(void)str;
-	free_array(game->map->map);
+	free_array(game->map->map, arr_size(game->map->map));
 	free(game->map);
 	free(game->ry);
 	free(game->img);

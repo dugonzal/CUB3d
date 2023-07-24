@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_fd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:50:57 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/21 14:50:30 by masla-la         ###   ########.fr       */
+/*   Updated: 2023/07/24 12:43:48 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static int	len_fd(int fd, t_game *game)
 	{
 		i++;
 		free(line);
+		line = NULL;
 		line = get_next_line(fd);
 	}
 	close(fd);
@@ -45,13 +46,13 @@ void	read_fd(t_game *game, int fd, char *av)
 	if (fd < 0)
 		free_error(game, "Invalid file: fd < 0");
 	line = get_next_line(fd);
-	i = 0;
+	i = -1;
 	while (line)
 	{
-		game->map->buffer[i] = ft_strdup(line);
+		game->map->buffer[++i] = ft_strdup(line);
 		free(line);
+		line = NULL;
 		line = get_next_line(fd);
-		i++;
 	}
 	free (line);
 	close(fd);

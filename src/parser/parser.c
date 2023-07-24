@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:44:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/24 11:52:45 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/24 12:29:50 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,12 @@ int	parser(t_game *game, char **av)
 		free_error(game, NULL);
 	read_fd(game, fd, av[1]);
 	if (get_map(game) || check_map(game))
-		free_error(game, "Mapa invalido");
+	{
+		for (int i = 0; i < 5; i++)
+			free(game->img[i].path);
+		free_array(game->map->buffer);
+		free_error(game, "Map invalid, Data retrieval has failed");
+	}
+	free_array(game->map->buffer);
 	return (0);
 }
