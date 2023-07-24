@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:44:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/24 11:51:44 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/24 11:52:45 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	check_map_aux(t_game *game, int y, int x)
 	return (0);
 }
 
-int	ft_return(int count)
+static int	ft_return(int count)
 {
 	if (count != 1)
 		return (1);
