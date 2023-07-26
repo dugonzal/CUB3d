@@ -6,7 +6,7 @@
 #    By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/15 12:31:04 by Dugonzal          #+#    #+#              #
-#    Updated: 2023/07/26 11:34:51 by masla-la         ###   ########.fr        #
+#    Updated: 2023/07/26 11:47:15 by masla-la         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ OBJ_DIR		:= obj/
 MLX_CF		:= -framework OpenGL -framework AppKit
 MLX_PATH 	:= libs/minilibx_macos/
 val 		:=  valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes
-CFLAGS		+= -fsanitize=address
+#CFLAGS		+= -fsanitize=address
 
 PARSER_DIR		:= parser/
 PARSER_FILES	:= read_fd parser get_map parser_utils
