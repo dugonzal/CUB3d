@@ -6,7 +6,7 @@
 /*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:28:50 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/26 10:38:21 by masla-la         ###   ########.fr       */
+/*   Updated: 2023/07/26 11:27:53 by masla-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	*free_array(char **str)
 	if (!str)
 		return (NULL);
 	i = 0;
-	while (str[i])
+	while (i < (int)arr_size(str))
 	{
-		free(str[i]);
-		str[i] = NULL;
+		if (str[i])
+			free(str[i]);
 		i++;
 	}
 	free(str);
@@ -44,23 +44,18 @@ void	free_all(t_game *game)
 
 	i = -1;
 	free_array(game->map->map);
-	free_array(game->map->buffer);
 	free(game->map);
 	free(game->ry);
 	free(game->color);
 	while (++i < 5)
-		free(game->img[i].path);
+		if (game->img[i].path)
+			free(game->img[i].path);
 	free(game->img);
 }
 
 void	free_error(t_game *game, char *str)
 {
-	(void)str;
-	free_array(game->map->map);
-	free(game->map);
-	free(game->ry);
-	free(game->img);
-	free(game->color);
+	free_all(game);
 	err(str);
 }
 

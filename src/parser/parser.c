@@ -6,7 +6,7 @@
 /*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:44:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/21 13:23:19 by masla-la         ###   ########.fr       */
+/*   Updated: 2023/07/26 11:34:13 by masla-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	check_map_aux(t_game *game, int y, int x)
 	return (0);
 }
 
-int	ft_return(int count)
+static int	ft_return(int count)
 {
 	if (count != 1)
 		return (1);
@@ -68,12 +68,20 @@ static int	check_map(t_game *game)
 int	parser(t_game *game, char **av)
 {
 	int	fd;
+	int	i;
 
 	fd = ft_open(av[1], 0);
 	if (fd < 0)
 		free_error(game, NULL);
 	read_fd(game, fd, av[1]);
 	if (get_map(game) || check_map(game))
-		free_error(game, "Error\nMapa invalido\n");
+	{
+		i = -1;
+		while (++i < 5)
+			free(game->img[i].path);
+		free_array(game->map->buffer);
+		free_error(game, "Map invalid, Data retrieval has failed");
+	}
+	free_array(game->map->buffer);
 	return (0);
 }

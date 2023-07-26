@@ -6,7 +6,7 @@
 /*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 13:19:35 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/26 10:48:32 by masla-la         ###   ########.fr       */
+/*   Updated: 2023/07/26 11:33:44 by masla-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ static int	len_map(t_game *game)
 		&& !search("NESWFC", game->map->buffer[i][0]))
 			j++;
 		else if (j && !search(game->map->buffer[i], '1'))
+		{
+			free_array(game->map->buffer);
 			free_error(game, "Invalid file: No end");
+		}
 		i++;
 	}
 	return (j);
