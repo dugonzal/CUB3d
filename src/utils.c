@@ -6,7 +6,7 @@
 /*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:28:50 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/21 13:12:16 by masla-la         ###   ########.fr       */
+/*   Updated: 2023/07/26 10:38:21 by masla-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,14 @@ void	free_all(t_game *game)
 {
 	int	i;
 
-	i = 4;
+	i = -1;
 	free_array(game->map->map);
 	free_array(game->map->buffer);
 	free(game->map);
 	free(game->ry);
 	free(game->color);
-	while (i < 5)
-	{
+	while (++i < 5)
 		free(game->img[i].path);
-		//free(game->img[i].img_w);
-		//free(game->img[i].addr);
-		//mlx_destroy_image(game->mlx, game->img[i].img_w);
-		i++;
-	}
 	free(game->img);
 }
 

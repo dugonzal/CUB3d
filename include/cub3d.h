@@ -6,7 +6,7 @@
 /*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 17:14:29 by masla-la          #+#    #+#             */
-/*   Updated: 2023/07/21 13:39:46 by masla-la         ###   ########.fr       */
+/*   Updated: 2023/07/26 10:49:58 by masla-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,17 +106,18 @@ void	read_fd(t_game *game, int fd, char *av);
 void	print(char **str);
 int		parser(t_game *game, char **av);
 int		get_map(t_game *game);
+int		check_commas(t_game *game, int i);
 
 //Launch_MLX
 int		init_mlx(t_game *lch);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 int		get_int_color(int r, int g, int b);
+bool	get_rgb_tmp(t_game *game, int i, char *line);
 
-//--------------------------------------
+//Ray-Casting
 int		raycasting(t_game *lch);
 void	init_ry(t_ry *ry);
 void	print_screen(t_game *lch);
-//--------------------------------------
 
 //Print_Text
 t_img	*select_text(t_game *lch, int side);
@@ -135,13 +136,9 @@ void	rot_camera(t_ry *ry, double rot_speed);
 void	move_camera_h(t_game *lch, double move_speed, int i);
 void	move_camera_v(t_game *lch, double move_speed, int i);
 
-//
+//Free
 void	*free_array(char **str);
 void	free_error(t_game *game, char *str);
-
-bool	get_rgb_tmp(t_game *game, int i, char *line);
-int	check_commas(t_game *game, int i);
-
 void	free_all(t_game *game);
 
 #endif

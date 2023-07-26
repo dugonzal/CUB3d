@@ -6,7 +6,7 @@
 /*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 17:17:09 by masla-la          #+#    #+#             */
-/*   Updated: 2023/07/21 13:09:25 by masla-la         ###   ########.fr       */
+/*   Updated: 2023/07/26 10:42:05 by masla-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,25 @@
 //126 arriba, 123 der, 124, iz, 125 abajo// 0 a, 1 s, 2 d, 12 w
 int	keyhook(t_game *lch)
 {
+	double	mov_speed;
+	double	rot_speed;
+
+	mov_speed = 0.1;
+	rot_speed = 3;
 	if (!lch->mlx_win)
 		return (0);
 	if (lch->x == 1)
-		move_camera_v(lch, 0.33, 1);
+		move_camera_v(lch, mov_speed, 1);
 	else if (lch->x == 2)
-		move_camera_v(lch, 0.33, -1);
+		move_camera_v(lch, mov_speed, -1);
 	else if (lch->x == 3)
-		move_camera_h(lch, 0.33, -1);
+		move_camera_h(lch, mov_speed, -1);
 	else if (lch->x == 4)
-		move_camera_h(lch, 0.33, 1);
+		move_camera_h(lch, mov_speed, 1);
 	else if (lch->x == -1)
-		rot_camera(lch->ry, (10 * (M_PI / 180)));
+		rot_camera(lch->ry, (rot_speed * (M_PI / 180)));
 	else if (lch->x == -2)
-		rot_camera(lch->ry, -(10 * (M_PI / 180)));
+		rot_camera(lch->ry, -(rot_speed * (M_PI / 180)));
 	if (lch->x != 0)
 	{
 		mlx_clear_window(lch->mlx, lch->mlx_win);
