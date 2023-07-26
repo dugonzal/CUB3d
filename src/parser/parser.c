@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:44:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/26 11:34:13 by masla-la         ###   ########.fr       */
+/*   Updated: 2023/07/26 11:52:25 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ static int	check_map(t_game *game)
 int	parser(t_game *game, char **av)
 {
 	int	fd;
-	int	i;
 
 	fd = ft_open(av[1], 0);
 	if (fd < 0)
@@ -76,9 +75,6 @@ int	parser(t_game *game, char **av)
 	read_fd(game, fd, av[1]);
 	if (get_map(game) || check_map(game))
 	{
-		i = -1;
-		while (++i < 5)
-			free(game->img[i].path);
 		free_array(game->map->buffer);
 		free_error(game, "Map invalid, Data retrieval has failed");
 	}
