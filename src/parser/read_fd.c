@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_fd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:50:57 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/24 12:43:48 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/26 11:20:22 by masla-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ void	read_fd(t_game *game, int fd, char *av)
 		line = NULL;
 		line = get_next_line(fd);
 	}
+	i = 0;
+	while (game->map->buffer[i])
+		i++;
 	free (line);
 	close(fd);
 }

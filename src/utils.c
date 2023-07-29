@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:28:50 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/24 12:32:22 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/26 11:27:53 by masla-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,18 @@ void	print(char **str)
 		ft_printf("%s", str[i]);
 }
 
-void	*free_array(char **str, int size)
+void	*free_array(char **str)
 {
 	int	i;
 
-	i = -1;
-	while (++i < size)
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (i < (int)arr_size(str))
 	{
-		free(str[i]);
-		str[i] = NULL;
+		if (str[i])
+			free(str[i]);
+		i++;
 	}
 	free(str);
 	return (NULL);
@@ -39,31 +42,20 @@ void	free_all(t_game *game)
 {
 	int	i;
 
-	i = 4;
-	free_array(game->map->map, arr_size(game->map->map));
-	free_array(game->map->buffer, arr_size(game->map->buffer));
+	i = -1;
+	free_array(game->map->map);
 	free(game->map);
 	free(game->ry);
 	free(game->color);
-	while (i < 5)
-	{
-		free(game->img[i].path);
-		//free(game->img[i].img_w);
-		//free(game->img[i].addr);
-		//mlx_destroy_image(game->mlx, game->img[i].img_w);
-		i++;
-	}
+	while (++i < 5)
+		if (game->img[i].path)
+			free(game->img[i].path);
 	free(game->img);
 }
 
 void	free_error(t_game *game, char *str)
 {
-	(void)str;
-	free_array(game->map->map, arr_size(game->map->map));
-	free(game->map);
-	free(game->ry);
-	free(game->img);
-	free(game->color);
+	free_all(game);
 	err(str);
 }
 

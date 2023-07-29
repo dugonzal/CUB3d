@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 13:19:35 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/24 11:57:07 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/29 22:11:49 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	len_map(t_game *game)
 		if (search(game->map->buffer[i], '1') \
 		&& !search("NESWFC", game->map->buffer[i][0]))
 			j++;
-		else if (j && !search(game->map->buffer[i], '1'))
+		else if (j > 0 && !search(game->map->buffer[i], '1'))
 		{
 			free_array(game->map->buffer);
 			free_error(game, "Invalid file: No end");
@@ -70,7 +70,7 @@ static int	get(t_game *game, char *line, int iter)
 // j[0] = j, j[1] = i  j[2] = iter
 int	get_map(t_game *game)
 {
-	int	j[3]; 
+	int	j[3];
 
 	j[0] = 0;
 	j[1] = 0;

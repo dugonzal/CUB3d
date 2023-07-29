@@ -6,7 +6,7 @@
 /*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 17:17:03 by masla-la          #+#    #+#             */
-/*   Updated: 2023/07/19 17:17:03 by masla-la         ###   ########.fr       */
+/*   Updated: 2023/07/26 10:44:43 by masla-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,18 @@ void	move_camera_v(t_game *lch, double move_speed, int i)
 	}
 }
 
-void	move_camera_h(t_game *lch, double move_speed, int i)
+void	move_camera_h(t_game *lch, double mov_speed, int i)
 {
-	(void)move_speed;
 	if (i == 1)
 	{
 		rot_camera(lch->ry, -(90 * (M_PI / 180)));
-		move_camera_v(lch, 0.15, 1);
+		move_camera_v(lch, mov_speed / 2, 1);
 		rot_camera(lch->ry, (90 * (M_PI / 180)));
 	}
 	else
 	{
 		rot_camera(lch->ry, (90 * (M_PI / 180)));
-		move_camera_v(lch, 0.15, 1);
+		move_camera_v(lch, mov_speed / 2, 1);
 		rot_camera(lch->ry, -(90 * (M_PI / 180)));
 	}
 }

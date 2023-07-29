@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 17:14:29 by masla-la          #+#    #+#             */
-/*   Updated: 2023/07/24 12:31:35 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/29 21:46:57 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define F	4
 # define C	5
 
-# define W 720
-# define H 640
+# define W 2000
+# define H 1000
 
 typedef struct s_game
 {
@@ -106,17 +106,18 @@ void	read_fd(t_game *game, int fd, char *av);
 void	print(char **str);
 int		parser(t_game *game, char **av);
 int		get_map(t_game *game);
-
+int		check_commas(t_game *game, int i);
+void	handler_flood_fill(t_game *game);
 //Launch_MLX
 int		init_mlx(t_game *lch);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 int		get_int_color(int r, int g, int b);
+bool	get_rgb_tmp(t_game *game, int i, char *line);
 
-//--------------------------------------
+//Ray-Casting
 int		raycasting(t_game *lch);
 void	init_ry(t_ry *ry);
 void	print_screen(t_game *lch);
-//--------------------------------------
 
 //Print_Text
 t_img	*select_text(t_game *lch, int side);
@@ -135,13 +136,9 @@ void	rot_camera(t_ry *ry, double rot_speed);
 void	move_camera_h(t_game *lch, double move_speed, int i);
 void	move_camera_v(t_game *lch, double move_speed, int i);
 
-//
-void	*free_array(char **str, int size);
+//Free
+void	*free_array(char **str);
 void	free_error(t_game *game, char *str);
-
-bool	get_rgb_tmp(t_game *game, int i, char *line);
-int	check_commas(t_game *game, int i);
-
 void	free_all(t_game *game);
 
 #endif

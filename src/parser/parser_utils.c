@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 14:35:16 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/24 12:41:18 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/26 11:06:37 by masla-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ bool	get_rgb_tmp(t_game *game, int i, char *line)
 	free(game->color[i].buffer);
 	if (get_rgb(game, i))
 		return (true);
-	free_array(game->color[i].rgb, arr_size(game->color[i].rgb));
+	free_array(game->color[i].rgb);
 	game->color[i].rgb = NULL;
 	return (false);
 }

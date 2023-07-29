@@ -6,7 +6,7 @@
 /*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:12:04 by masla-la          #+#    #+#             */
-/*   Updated: 2023/07/21 13:05:28 by masla-la         ###   ########.fr       */
+/*   Updated: 2023/07/26 11:08:30 by masla-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	open_img(t_game	*lch)
 		lch->img[i].img_w = mlx_xpm_file_to_image(\
 		lch->mlx, lch->img[i].path, &z, &z);
 		if (!lch->img[i].img_w)
-			err("XPM =>[textures] not found");
+			free_error(lch, "XPM =>[textures] not found");
 		lch->img[i].addr = mlx_get_data_addr(\
 		lch->img[i].img_w, &lch->img[i].bits_per_pixel, \
 		&lch->img[i].line_length, &lch->img[i].endian);
@@ -98,6 +98,3 @@ int	init_mlx(t_game *lch)
 	mlx_loop(lch->mlx);
 	return (0);
 }
-
-//cerrar con la x roja
-

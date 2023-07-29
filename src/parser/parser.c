@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:44:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/24 12:29:50 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/29 22:12:32 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,6 @@ static int	ft_player(t_game *game, int y, int x, int count)
 	game->ry->dir = game->map->map[y][x];
 	game->map->map[y][x] = '0';
 	return (count + 1);
-}
-
-static int	check_map_aux(t_game *game, int y, int x)
-{
-	if (!y || !x || (game->map->len_x - 1) == x || (game->map->len_y - 1) == y \
-	|| game->map->map[y][x + 1] == ' ' || game->map->map[y][x - 1] == ' ' \
-	|| game->map->map[y][x] == ' ' || game->map->map[y][x] == ' ' )
-		return (1);
-	return (0);
 }
 
 static int	ft_return(int count)
@@ -54,12 +45,11 @@ static int	check_map(t_game *game)
 				return (1);
 			if (game->map->map[y][x] == '\n' && game->map->map[y][x - 1] != '1')
 				return (1);
-			if (game->map->map[y][x] != ' ' && game->map->map[y][x] != '1' \
-			&& game->map->map[y][x] != '\n')
-				if (check_map_aux(game, y, x))
-					return (1);
-			if (search("NESW", game->map->map[y][x]))
+			if (search("NESW", game->map->map[y][x])){
+				game->y = y;
+				game->x = x;
 				count = ft_player(game, y, x, count);
+			  }
 		}
 	}
 	return (ft_return(count));
@@ -75,11 +65,11 @@ int	parser(t_game *game, char **av)
 	read_fd(game, fd, av[1]);
 	if (get_map(game) || check_map(game))
 	{
-		for (int i = 0; i < 5; i++)
-			free(game->img[i].path);
 		free_array(game->map->buffer);
 		free_error(game, "Map invalid, Data retrieval has failed");
 	}
+	handler_flood_fill(game);
 	free_array(game->map->buffer);
+	exit (0);
 	return (0);
 }
