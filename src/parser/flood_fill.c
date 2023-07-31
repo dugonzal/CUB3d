@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 22:57:55 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/29 22:09:43 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/31 00:38:36 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,20 @@ void flood_fill(t_game *game,char **map, int x, int y, int len_x, int len_y)
   }
 }
 
-void handler_flood_fill(t_game *game)
+bool check_wall(t_game *game, int y, int x)
+{
+	if (game->map->map[y][x] != 'f' && game->map->map[y][x] != '1')
+		return (1);
+	return (false);
+}
+
+bool handler_flood_fill(t_game *game)
 {
 	int y;
 	int x;
 
 	flood_fill(game, game->map->map, game->x, game->y, game->map->len_x ,(int)arr_size(game->map->map));
 	y = 0;
-	print(game->map->map);
 	while (game->map->map[y])
 	{
 		x = 0;
@@ -41,18 +47,19 @@ void handler_flood_fill(t_game *game)
 		{
 			if (game->map->map[y][x] == 'f')
 			{
-			    if (game->map->map[y - 1][x] != 'f' && game->map->map[y - 1][x] != '1')
-				  	  ft_printf ("[%d][%d] = %c\n", y - 1, x, game->map->map[y - 1][x]);
-				else if (game->map->map[y + 1][x] != 'f' && game->map->map[y + 1][x] != '1')
-					  ft_printf ("[%d][%d] [%c]\n", y + 1, x, game->map->map[y + 1][x]);
-				else if (game->map->map[y][x - 1] != '1' && game->map->map[y][x - 1] != 'f')
-					  ft_printf ("[%d][%d] [%c]\n", y, x - 1, game->map->map[y][x - 1]);
-				else if (game->map->map[y][x + 1] != '1' && game->map->map[y][x + 1] != 'f')
-					  ft_printf ("[%d][%d] [%c]\n", y, x + 1, game->map->map[y][x + 1]);
+				if (check_wall(game, y + 1, x))
+					return (1);
+				else if (check_wall(game, y - 1, x))
+					return (1);
+				else if (check_wall(game, y, x - 1))
+					return (1);
+				else if (check_wall(game, y, x + 1))
+					return (1);
 			}
 			x++;
 		}
 		y++;
 	}
+	return (false);
 }
 

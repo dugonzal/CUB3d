@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 17:14:29 by masla-la          #+#    #+#             */
-/*   Updated: 2023/07/29 21:46:57 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/31 00:13:36 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	print(char **str);
 int		parser(t_game *game, char **av);
 int		get_map(t_game *game);
 int		check_commas(t_game *game, int i);
-void	handler_flood_fill(t_game *game);
+bool	handler_flood_fill(t_game *game);
 //Launch_MLX
 int		init_mlx(t_game *lch);
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);

@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:44:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/29 22:12:32 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/31 00:33:35 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ static int	check_map(t_game *game)
 		{
 			if (!search("01NESW \n", game->map->map[y][x]))
 				return (1);
-			if (game->map->map[y][x] == '\n' && game->map->map[y][x - 1] != '1')
-				return (1);
 			if (search("NESW", game->map->map[y][x])){
 				game->y = y;
 				game->x = x;
@@ -63,12 +61,15 @@ int	parser(t_game *game, char **av)
 	if (fd < 0)
 		free_error(game, NULL);
 	read_fd(game, fd, av[1]);
-	if (get_map(game) || check_map(game))
+	if (get_map(game) || check_map(game) || (handler_flood_fill(game)))
 	{
 		free_array(game->map->buffer);
 		free_error(game, "Map invalid, Data retrieval has failed");
-	}
-	handler_flood_fill(game);
+	} 
+	free_array(game->map->map);
+	get_map(game);
+	check_map(game);
+	print(game->map->map);
 	free_array(game->map->buffer);
 	exit (0);
 	return (0);
