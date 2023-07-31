@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+         #
+#    By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/15 12:31:04 by Dugonzal          #+#    #+#              #
-#    Updated: 2023/07/31 00:09:54 by Dugonzal         ###   ########.fr        #
+#    Updated: 2023/07/31 02:53:04 by dugonzal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ PARSER_DIR		:= parser/
 PARSER_FILES	:= read_fd parser get_map parser_utils flood_fill
 
 RAYCAST_DIR		:= raycasting/
-RAYCAST_FILES	:= #camera key_hook lch_mlx print_text raycasting
+RAYCAST_FILES	:= camera key_hook lch_mlx print_text raycasting
 
 SRC_FILES	+= $(addprefix $(PARSER_DIR),$(PARSER_FILES))
 SRC_FILES	+= $(addprefix $(RAYCAST_DIR),$(RAYCAST_FILES))
@@ -43,10 +43,10 @@ endif
 .SILENT:
 
 $(NAME): $(OBJ)
-	#make -C $(MLX_PATH) 2> /dev/null
-	#echo $(MLX_PATH)
-	##cp -r $(MLX_PATH)libmlx.a libs/bin/
-	$(CC) $(CFLAGS) $(OBJ) -lm libs/bin/*.a -o $(NAME)
+	make -C $(MLX_PATH) 2> /dev/null
+	echo $(MLX_PATH)
+	cp -r $(MLX_PATH)libmlx.a libs/bin/
+	$(CC) $(CFLAGS) $(MLX_CF) $(OBJ) -lm libs/bin/*.a -o $(NAME)
 	echo "\033[32m[✔ ] $(NAME) created game cub3d\033[0m"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c

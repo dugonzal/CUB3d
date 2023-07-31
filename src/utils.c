@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masla-la <masla-la@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:28:50 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/26 11:27:53 by masla-la         ###   ########.fr       */
+/*   Updated: 2023/07/31 02:59:33 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,15 @@ void	print(char **str)
 void	*free_array(char **str)
 {
 	int	i;
+	int len;
 
 	if (!str)
 		return (NULL);
-	i = 0;
-	while (i < (int)arr_size(str))
-	{
+	len = (int)arr_size(str);
+	i = -1;
+	while (++i < len)
 		if (str[i])
 			free(str[i]);
-		i++;
-	}
 	free(str);
 	return (NULL);
 }

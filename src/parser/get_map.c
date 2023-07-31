@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 13:19:35 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/29 22:11:49 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/31 02:56:55 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int	get(t_game *game, char *line, int iter)
 }
 
 // j[0] = j, j[1] = i  j[2] = iter
-int	get_map(t_game *game)
+int	get_map(t_game *game, int i)
 {
 	int	j[3];
 
@@ -81,7 +81,7 @@ int	get_map(t_game *game)
 		free_error(game, "Invalid file: calloc");
 	while (game->map->buffer[j[1]] && j[0] < game->map->len_y)
 	{
-		if (search("NESWFC", game->map->buffer[j[1]][0]))
+		if (i == 1 && search("NESWFC", game->map->buffer[j[1]][0]))
 			if (get(game, game->map->buffer[j[1]], ++j[2]))
 				return (1);
 		if (search(game->map->buffer[j[1]], '1') \

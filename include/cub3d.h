@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 17:14:29 by masla-la          #+#    #+#             */
-/*   Updated: 2023/07/31 00:13:36 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/31 02:56:15 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ typedef struct s_map
 void	read_fd(t_game *game, int fd, char *av);
 void	print(char **str);
 int		parser(t_game *game, char **av);
-int		get_map(t_game *game);
+int		get_map(t_game *game, int i);
 int		check_commas(t_game *game, int i);
 bool	handler_flood_fill(t_game *game);
 //Launch_MLX

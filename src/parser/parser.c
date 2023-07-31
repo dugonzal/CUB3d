@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:44:48 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/31 00:33:35 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/31 02:56:36 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,15 @@ static int	check_map(t_game *game)
 		{
 			if (!search("01NESW \n", game->map->map[y][x]))
 				return (1);
-			if (search("NESW", game->map->map[y][x])){
+			if (search("NESW", game->map->map[y][x]))
+			{
 				game->y = y;
 				game->x = x;
 				count = ft_player(game, y, x, count);
-			  }
+			}
 		}
 	}
+	game->map->len_y = (int)arr_size(game->map->map);
 	return (ft_return(count));
 }
 
@@ -61,16 +63,14 @@ int	parser(t_game *game, char **av)
 	if (fd < 0)
 		free_error(game, NULL);
 	read_fd(game, fd, av[1]);
-	if (get_map(game) || check_map(game) || (handler_flood_fill(game)))
+	if (get_map(game, 1) || check_map(game) || (handler_flood_fill(game)))
 	{
 		free_array(game->map->buffer);
 		free_error(game, "Map invalid, Data retrieval has failed");
-	} 
+	}
 	free_array(game->map->map);
-	get_map(game);
+	get_map(game, 0);
 	check_map(game);
-	print(game->map->map);
 	free_array(game->map->buffer);
-	exit (0);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:11:47 by masla-la          #+#    #+#             */
-/*   Updated: 2023/07/31 00:09:35 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/31 02:58:01 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,7 @@ int	main(int ac, char **av)
 	ft_bzero(&game, sizeof(t_game));
 	init_struct(&game);
 	parser (&game, av);
-	if (game.map->map)
-	{
-		ft_default(&game);
-		//init_mlx(&game);
-	}
+	ft_default(&game);
+	init_mlx(&game);
 	return (0);
 }
