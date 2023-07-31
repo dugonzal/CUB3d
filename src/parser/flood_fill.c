@@ -6,7 +6,7 @@
 /*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 22:57:55 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/31 02:49:10 by dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/31 13:40:34 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,3 @@ bool	handler_flood_fill(t_game *game)
 	}
 	return (false);
 }
-

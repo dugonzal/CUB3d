@@ -6,7 +6,7 @@
 /*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:28:50 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/31 02:59:33 by dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/31 13:40:44 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print(char **str)
 void	*free_array(char **str)
 {
 	int	i;
-	int len;
+	int	len;
 
 	if (!str)
 		return (NULL);
