@@ -6,7 +6,7 @@
 /*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 22:57:55 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/31 00:38:36 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/31 00:41:04 by Dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void flood_fill(t_game *game,char **map, int x, int y, int len_x, int len_y)
 bool check_wall(t_game *game, int y, int x)
 {
 	if (game->map->map[y][x] != 'f' && game->map->map[y][x] != '1')
-		return (1);
+		return (true);
 	return (false);
 }
 
@@ -48,13 +48,13 @@ bool handler_flood_fill(t_game *game)
 			if (game->map->map[y][x] == 'f')
 			{
 				if (check_wall(game, y + 1, x))
-					return (1);
+					return (true);
 				else if (check_wall(game, y - 1, x))
-					return (1);
+					return (true);
 				else if (check_wall(game, y, x - 1))
-					return (1);
+					return (true);
 				else if (check_wall(game, y, x + 1))
-					return (1);
+					return (true);
 			}
 			x++;
 		}
