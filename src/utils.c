@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:28:50 by Dugonzal          #+#    #+#             */
-/*   Updated: 2023/07/20 22:09:25 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/31 02:59:33 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,37 @@ void	print(char **str)
 void	*free_array(char **str)
 {
 	int	i;
+	int len;
 
 	if (!str)
 		return (NULL);
-	i = 0;
-	while (*str && str[i])
-	{
-		free(str[i]);
-		str[i] = NULL;
-		i++;
-	}
+	len = (int)arr_size(str);
+	i = -1;
+	while (++i < len)
+		if (str[i])
+			free(str[i]);
 	free(str);
 	return (NULL);
 }
 
-void	free_error(t_game *game, char *str)
+void	free_all(t_game *game)
 {
+	int	i;
+
+	i = -1;
 	free_array(game->map->map);
 	free(game->map);
 	free(game->ry);
-	free(game->img);
 	free(game->color);
+	while (++i < 5)
+		if (game->img[i].path)
+			free(game->img[i].path);
+	free(game->img);
+}
+
+void	free_error(t_game *game, char *str)
+{
+	free_all(game);
 	err(str);
 }
 

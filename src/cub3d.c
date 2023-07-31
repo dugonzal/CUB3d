@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Dugonzal <dugonzal@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dugonzal <dugonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:11:47 by masla-la          #+#    #+#             */
-/*   Updated: 2023/07/20 13:18:52 by Dugonzal         ###   ########.fr       */
+/*   Updated: 2023/07/31 02:58:01 by dugonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,18 @@ void	init_struct(t_game *lch)
 	}
 }
 
+void	ft_default(t_game *game)
+{
+	if (!game->img[0].path)
+		game->img[0].path = ft_strdup("img/wood3.xpm");
+	if (!game->img[1].path)
+		game->img[1].path = ft_strdup("img/123.xpm");
+	if (!game->img[2].path)
+		game->img[2].path = ft_strdup("img/123.xpm");
+	if (!game->img[3].path)
+		game->img[3].path = ft_strdup("img/123.xpm");
+}
+
 int	main(int ac, char **av)
 {
 	t_game	game;
@@ -39,6 +51,7 @@ int	main(int ac, char **av)
 	ft_bzero(&game, sizeof(t_game));
 	init_struct(&game);
 	parser (&game, av);
+	ft_default(&game);
 	init_mlx(&game);
 	return (0);
 }
